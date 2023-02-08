@@ -1,0 +1,3221 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data Pre-Processing &#8212; Linear Regression of Jabodetabek House Price and Implementation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Exploration and Analysis of House Price Offers" href="2%20-%20Data%20Exploration%20and%20Analysis.html" />
+    <link rel="prev" title="Linear Regression Model of Jabodetabek House Price and its Implementation" href="README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Regression of Jabodetabek House Price and Implementation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Linear Regression Model of Jabodetabek House Price and its Implementation
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   <strong>
+    Data Pre-Processing
+   </strong>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2%20-%20Data%20Exploration%20and%20Analysis.html">
+   <strong>
+    Data Exploration and Analysis of House Price Offers
+   </strong>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3%20-%20Linear%20Modeling%20of%20House%20Price.html">
+   <strong>
+    Linear Regression Model of House Price in Jabodetabek Area and its Implementation
+   </strong>
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nbarizki/jabodetabekhousepricing/main?urlpath=tree/1 - Data Pre-Processing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nbarizki/jabodetabekhousepricing"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nbarizki/jabodetabekhousepricing/issues/new?title=Issue%20on%20page%20%2F1 - Data Pre-Processing.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/1 - Data Pre-Processing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-dataset-of-all-jabodetabek">
+   2. Combining Dataset of All Jabodetabek
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#column-field-correction">
+   3. Column Field Correction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transforming-price-and-address-records">
+   4. Transforming Price and Address Records
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#price-records">
+     <strong>
+      Price Records
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#address">
+     <strong>
+      Address
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#land-size-building-size-electricity">
+     <strong>
+      Land Size, Building Size, Electricity
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-age">
+     <strong>
+      Building Age
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#considering-the-missing-value">
+   5. Considering the Missing Value
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-processed-data">
+   6. Pre-Processed Data
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data Pre-Processing</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-dataset-of-all-jabodetabek">
+   2. Combining Dataset of All Jabodetabek
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#column-field-correction">
+   3. Column Field Correction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transforming-price-and-address-records">
+   4. Transforming Price and Address Records
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#price-records">
+     <strong>
+      Price Records
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#address">
+     <strong>
+      Address
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#land-size-building-size-electricity">
+     <strong>
+      Land Size, Building Size, Electricity
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-age">
+     <strong>
+      Building Age
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#considering-the-missing-value">
+   5. Considering the Missing Value
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-processed-data">
+   6. Pre-Processed Data
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="data-pre-processing">
+<h1><strong>Data Pre-Processing</strong><a class="headerlink" href="#data-pre-processing" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="combining-dataset-of-all-jabodetabek">
+<h2>2. Combining Dataset of All Jabodetabek<a class="headerlink" href="#combining-dataset-of-all-jabodetabek" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">vectorize</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Scraped_Data/raw/Bekasi_2022-10-09_16-57_page_1_to_50.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Bogor_2022-10-08_17-49_page_1_to_20.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Bogor_2022-10-08_18-19_page_21_to_30.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Bogor_2022-10-09_18-20_page_31_to_50.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Depok_2022-10-09_17-17_page_1_to_21.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Depok_2022-10-09_14-23_page_22_to_50.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Jakarta_2022-10-07_08-14_page_1_to_10.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Jakarta_2022-10-08_13-34_page_11_to_20.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Jakarta_2022-10-09_17-20_page_21_to_37.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Jakarta_2022-10-08_15-00_page_38_to_40.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Jakarta_2022-10-08_15-41_page_41_to_50.csv&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Scraped_Data/raw/Tangerang_2022-10-08_21-10_page_1_to_50.csv&#39;</span>
+<span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="nb">map</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">,</span> <span class="n">file_names</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2888</th>
+      <th>2803</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+    </tr>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>10,1</td>
+      <td>4,44</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Miliar</td>
+      <td>Miliar</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah Mewah 3 Lantai Di Kawasan Zora Bsd City</td>
+      <td>RUMAH VIEW DANAU FULL MARMER! SUTERA WINONA AL...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>BSD City, Tangerang</td>
+      <td>Alam Sutera, Tangerang</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Keamanan 24 jam, AC,  Kolam Renang, Taman,  On...</td>
+      <td>Jogging Track,  Taman, Kolam Renang, CCTV, Ja...</td>
+    </tr>
+    <tr>
+      <th>k. tidur</th>
+      <td>4.00</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>k. mandi</th>
+      <td>4.00</td>
+      <td>6.00</td>
+    </tr>
+    <tr>
+      <th>l. tanah</th>
+      <td>200 m²</td>
+      <td>108 m²</td>
+    </tr>
+    <tr>
+      <th>l. bangunan</th>
+      <td>358 m²</td>
+      <td>195 m²</td>
+    </tr>
+    <tr>
+      <th>tipe properti</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>sertifikat</th>
+      <td>NaN</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>daya listrik</th>
+      <td>7700 mah</td>
+      <td>3500 mah</td>
+    </tr>
+    <tr>
+      <th>km. pembantu</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>jumlah lantai</th>
+      <td>NaN</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>tahun dibangun</th>
+      <td>NaN</td>
+      <td>2,020.00</td>
+    </tr>
+    <tr>
+      <th>kondisi properti</th>
+      <td>NaN</td>
+      <td>bagus sekali</td>
+    </tr>
+    <tr>
+      <th>kondisi perabotan</th>
+      <td>NaN</td>
+      <td>semi furnished</td>
+    </tr>
+    <tr>
+      <th>id iklan</th>
+      <td>NaN</td>
+      <td>hos7103414</td>
+    </tr>
+    <tr>
+      <th>carport</th>
+      <td>2.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>hadap</th>
+      <td>NaN</td>
+      <td>selatan</td>
+    </tr>
+    <tr>
+      <th>garasi</th>
+      <td>NaN</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>kt. pembantu</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>land size</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building size</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>maid bedrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>maid bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building age</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>property condition</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building orientation</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="column-field-correction">
+<h2>3. Column Field Correction<a class="headerlink" href="#column-field-correction" title="Permalink to this headline">#</a></h2>
+<p>As we can see, there are inconsistence column labels due to different language format. Let’s compare both condition:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;k. tidur&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bedrooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([3023], dtype=int64), array([2894], dtype=int64)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+        <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;k. tidur&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">())]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bedrooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">())]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">sample</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>68</th>
+      <th>830</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/bekasi/hos11...</td>
+      <td>https://www.rumah123.com/properti/bogor/hos108...</td>
+    </tr>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>300</td>
+      <td>260</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Juta</td>
+      <td>Juta</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah murah di bekasi kebalen vgh babelan!!</td>
+      <td>Jual rumah murah siap huni ..</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Kebalen, Bekasi</td>
+      <td>Dramaga, Bogor</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Jogging Track, Track Lari, Masjid, Keamanan 2...</td>
+      <td>Taman, Masjid,  Keamanan</td>
+    </tr>
+    <tr>
+      <th>k. tidur</th>
+      <td>2.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>k. mandi</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>l. tanah</th>
+      <td>60 m²</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>l. bangunan</th>
+      <td>36 m²</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>tipe properti</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>sertifikat</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>daya listrik</th>
+      <td>1300 mah</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>km. pembantu</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>jumlah lantai</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>tahun dibangun</th>
+      <td>2,022.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kondisi properti</th>
+      <td>baru</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kondisi perabotan</th>
+      <td>unfurnished</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>id iklan</th>
+      <td>hos11208968</td>
+      <td>hos10849438</td>
+    </tr>
+    <tr>
+      <th>carport</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>hadap</th>
+      <td>timur</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>garasi</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kt. pembantu</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>NaN</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>NaN</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>land size</th>
+      <td>NaN</td>
+      <td>100 m²</td>
+    </tr>
+    <tr>
+      <th>building size</th>
+      <td>NaN</td>
+      <td>70 m²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>NaN</td>
+      <td>lainnya (ppjb,girik,adat,dll)</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>NaN</td>
+      <td>1300 mah</td>
+    </tr>
+    <tr>
+      <th>maid bedrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>maid bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>building age</th>
+      <td>NaN</td>
+      <td>2,019.00</td>
+    </tr>
+    <tr>
+      <th>property condition</th>
+      <td>NaN</td>
+      <td>baru</td>
+    </tr>
+    <tr>
+      <th>building orientation</th>
+      <td>NaN</td>
+      <td>barat</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;row_count&#39;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;k. tidur&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bedrooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">})</span>
+<span class="n">row_count</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ind_labeled&#39;</span><span class="p">,</span> <span class="s1">&#39;eng_labeled&#39;</span><span class="p">]</span>
+<span class="n">row_count</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>row_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ind_labeled</th>
+      <td>3409</td>
+    </tr>
+    <tr>
+      <th>eng_labeled</th>
+      <td>110</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As we can see, where <code class="docutils literal notranslate"><span class="pre">Indonesian</span> <span class="pre">labeled</span> <span class="pre">column</span></code> is recorded, the <code class="docutils literal notranslate"><span class="pre">English</span> <span class="pre">labeled</span> <span class="pre">column</span></code> is empty, and vice versa. I decide to keep the English label using codes below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label_pair</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;k. tidur&#39;</span><span class="p">,</span> <span class="s1">&#39;bedrooms&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;k. mandi&#39;</span><span class="p">,</span> <span class="s1">&#39;bathrooms&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;l. tanah&#39;</span><span class="p">,</span> <span class="s1">&#39;land size&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;l. bangunan&#39;</span><span class="p">,</span> <span class="s1">&#39;building size&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sertifikat&#39;</span><span class="p">,</span> <span class="s1">&#39;certificate&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;daya listrik&#39;</span><span class="p">,</span> <span class="s1">&#39;electricity&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;km. pembantu&#39;</span><span class="p">,</span> <span class="s1">&#39;maid bathrooms&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;jumlah lantai&#39;</span><span class="p">,</span> <span class="s1">&#39;floors&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;tahun dibangun&#39;</span><span class="p">,</span> <span class="s1">&#39;building age&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;kondisi properti&#39;</span><span class="p">,</span> <span class="s1">&#39;property condition&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;kondisi perabotan&#39;</span><span class="p">,</span> <span class="s1">&#39;furnishing&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;carport&#39;</span><span class="p">,</span> <span class="s1">&#39;carports&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;hadap&#39;</span><span class="p">,</span> <span class="s1">&#39;building orientation&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;garasi&#39;</span><span class="p">,</span> <span class="s1">&#39;garages&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;kt. pembantu&#39;</span><span class="p">,</span> <span class="s1">&#39;maid bedrooms&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will use <code class="docutils literal notranslate"><span class="pre">DataFrame.fillna()</span></code> (column-wise) to fill missing records of <code class="docutils literal notranslate"><span class="pre">English</span> <span class="pre">labeled</span> <span class="pre">columns</span></code> using <code class="docutils literal notranslate"><span class="pre">Indonesian</span> <span class="pre">labeled</span> <span class="pre">columns</span></code> value as below:</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">eng</span> <span class="ow">in</span> <span class="n">label_pair</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">eng</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">ind</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>3147</th>
+      <th>1647</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+      <td>https://www.rumah123.com/properti/depok/hos109...</td>
+    </tr>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>650</td>
+      <td>750</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Juta</td>
+      <td>Juta</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Termurah Rumah 2 Lantai Siap Huni di Karawaci ...</td>
+      <td>Rumah Minimalis di Palm Residence Dekat Park S...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Karawaci, Tangerang</td>
+      <td>Sawangan, Depok</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Masjid, Keamanan 24 jam, Tempat Jemuran</td>
+      <td>Keamanan, Taman</td>
+    </tr>
+    <tr>
+      <th>k. tidur</th>
+      <td>3.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>k. mandi</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>l. tanah</th>
+      <td>72 m²</td>
+      <td>72 mÂ²</td>
+    </tr>
+    <tr>
+      <th>l. bangunan</th>
+      <td>96 m²</td>
+      <td>43 mÂ²</td>
+    </tr>
+    <tr>
+      <th>tipe properti</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>sertifikat</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>daya listrik</th>
+      <td>1300 mah</td>
+      <td>1300 mah</td>
+    </tr>
+    <tr>
+      <th>km. pembantu</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>jumlah lantai</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>tahun dibangun</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kondisi properti</th>
+      <td>bagus</td>
+      <td>bagus</td>
+    </tr>
+    <tr>
+      <th>kondisi perabotan</th>
+      <td>unfurnished</td>
+      <td>unfurnished</td>
+    </tr>
+    <tr>
+      <th>id iklan</th>
+      <td>hos11251201</td>
+      <td>hos10916403</td>
+    </tr>
+    <tr>
+      <th>carport</th>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>hadap</th>
+      <td>NaN</td>
+      <td>timur laut</td>
+    </tr>
+    <tr>
+      <th>garasi</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kt. pembantu</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>3.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>land size</th>
+      <td>72 m²</td>
+      <td>72 mÂ²</td>
+    </tr>
+    <tr>
+      <th>building size</th>
+      <td>96 m²</td>
+      <td>43 mÂ²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>1300 mah</td>
+      <td>1300 mah</td>
+    </tr>
+    <tr>
+      <th>maid bedrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>maid bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>building age</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>property condition</th>
+      <td>bagus</td>
+      <td>bagus</td>
+    </tr>
+    <tr>
+      <th>building orientation</th>
+      <td>NaN</td>
+      <td>timur laut</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>unfurnished</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Looks like it turns out as we expected. Now we just drop the <code class="docutils literal notranslate"><span class="pre">Indonesian</span> <span class="pre">labeled</span> <span class="pre">columns</span></code> using below codes. We also rename the columns that still in Indonesian label and using <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> format:</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">label_pair</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">column</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;tipe properti&#39;</span><span class="p">:</span> <span class="s1">&#39;property_type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;id iklan&#39;</span><span class="p">:</span> <span class="s1">&#39;ads_id&#39;</span>
+        <span class="p">},</span> 
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="n">column</span><span class="p">:</span> <span class="n">column</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="p">},</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2759</th>
+      <th>3249</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+    </tr>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>500</td>
+      <td>7,2</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Juta</td>
+      <td>Miliar</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah Bebas Banjir Di Perumahan Citra Raya Har...</td>
+      <td>Rumah Mewah Dijual di Bsd City, Tangerang, Banten</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Panongan, Tangerang</td>
+      <td>BSD The Icon, Tangerang</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Keamanan, Taman</td>
+      <td>CCTV</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos10597643</td>
+      <td>hos10773553</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>2.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>1.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>land_size</th>
+      <td>72 m²</td>
+      <td>224 m²</td>
+    </tr>
+    <tr>
+      <th>building_size</th>
+      <td>50 m²</td>
+      <td>350 m²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>1300 mah</td>
+      <td>3500 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>1.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>NaN</td>
+      <td>2,022.00</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>bagus</td>
+      <td>baru</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>NaN</td>
+      <td>selatan</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>unfurnished</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="transforming-price-and-address-records">
+<h2>4. Transforming Price and Address Records<a class="headerlink" href="#transforming-price-and-address-records" title="Permalink to this headline">#</a></h2>
+<section id="price-records">
+<h3><strong>Price Records</strong><a class="headerlink" href="#price-records" title="Permalink to this headline">#</a></h3>
+<p>We are going to check unique values of <code class="docutils literal notranslate"><span class="pre">currency</span></code> and <code class="docutils literal notranslate"><span class="pre">price_unit_scale</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">currency</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Rp&#39;]
+[&#39;Miliar&#39; &#39;Juta&#39; &#39;Triliun&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We should check the house price in <code class="docutils literal notranslate"><span class="pre">Triliun</span></code>, since the value is rather ambiguous for a house price to be this high.</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="o">==</span><span class="s1">&#39;Triliun&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>url</th>
+      <th>currency</th>
+      <th>price</th>
+      <th>price_unit_scale</th>
+      <th>title</th>
+      <th>address</th>
+      <th>facilities</th>
+      <th>property_type</th>
+      <th>ads_id</th>
+      <th>bedrooms</th>
+      <th>...</th>
+      <th>certificate</th>
+      <th>electricity</th>
+      <th>maid_bedrooms</th>
+      <th>maid_bathrooms</th>
+      <th>floors</th>
+      <th>building_age</th>
+      <th>property_condition</th>
+      <th>building_orientation</th>
+      <th>garages</th>
+      <th>furnishing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>934</th>
+      <td>https://www.rumah123.com/properti/bogor/hos113...</td>
+      <td>Rp</td>
+      <td>5,4</td>
+      <td>Triliun</td>
+      <td>Rumah di Baranang Siang Indah, Dekat Tol, Mal,...</td>
+      <td>Baranangsiang, Bogor</td>
+      <td>Taman, Keamanan 24 jam,  Taman,  CCTV, Masjid,...</td>
+      <td>rumah</td>
+      <td>hos11359992</td>
+      <td>3.00</td>
+      <td>...</td>
+      <td>shm - sertifikat hak milik</td>
+      <td>5500 mah</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>NaN</td>
+      <td>bagus</td>
+      <td>timur</td>
+      <td>1.00</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>After checking the URL, seems that price is in Rp. 5,4 Miliar (listing may be revised by owner) so we shall revise the price scale for this record.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="o">==</span><span class="s1">&#39;Triliun&#39;</span><span class="p">,</span> <span class="s1">&#39;price_unit_scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Miliar&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Miliar&#39; &#39;Juta&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The price is still in <code class="docutils literal notranslate"><span class="pre">string</span></code> format, so we will transform the value by its <code class="docutils literal notranslate"><span class="pre">price_unit_scale</span></code>.</p>
+<p>Pandas need <code class="docutils literal notranslate"><span class="pre">vectorized</span> <span class="pre">function</span></code> to execute <code class="docutils literal notranslate"><span class="pre">vectorized</span> <span class="pre">operations</span></code>. We can create <code class="docutils literal notranslate"><span class="pre">vectorized</span> <span class="pre">function</span></code> by creating a standard function first then we convert it into vectorized function using <code class="docutils literal notranslate"><span class="pre">np.vectorize</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">np.vectorize</span></code> returns a <code class="docutils literal notranslate"><span class="pre">callable</span></code> as its output, which we will use to our Pandas operations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_price</span><span class="p">(</span><span class="n">price</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit_scale</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">price_numeric</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">price</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">unit_scale</span> <span class="o">==</span> <span class="s1">&#39;Juta&#39;</span><span class="p">:</span>
+        <span class="n">converted_price</span> <span class="o">=</span> <span class="n">price_numeric</span> <span class="o">*</span> <span class="mi">1000000</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">converted_price</span> <span class="o">=</span> <span class="n">price_numeric</span> <span class="o">*</span> <span class="mi">1000000000</span>
+    <span class="k">return</span> <span class="n">converted_price</span>
+
+<span class="n">convert_price_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">convert_price</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s try our <code class="docutils literal notranslate"><span class="pre">vectorized</span> <span class="pre">function</span></code> to our dataframe. It is convenient to change panda’s setting of number display format so that we can clearly distinguish the millions and billions scale.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:,.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">price_converted</span><span class="o">=</span><span class="n">convert_price_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">price</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="s1">&#39;price_unit_scale&#39;</span><span class="p">,</span> <span class="s1">&#39;price_converted&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1893</th>
+      <th>1739</th>
+      <th>3275</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+      <td>Rp</td>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>1,67</td>
+      <td>800</td>
+      <td>2,4</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Miliar</td>
+      <td>Juta</td>
+      <td>Miliar</td>
+    </tr>
+    <tr>
+      <th>price_converted</th>
+      <td>1,670,000,000.00</td>
+      <td>800,000,000.00</td>
+      <td>2,400,000,000.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As expected, <code class="docutils literal notranslate"><span class="pre">Pandas</span></code> performing vectorized function, resulting in an index-wise operation to convert the price. The scale of <code class="docutils literal notranslate"><span class="pre">Miliar</span></code> and <code class="docutils literal notranslate"><span class="pre">Juta</span></code> is also correct as expected.</p>
+<p>We won’t need the <code class="docutils literal notranslate"><span class="pre">price_unit_scale</span></code> anymore, and we will define a new column <code class="docutils literal notranslate"><span class="pre">price_in_rp</span></code> to inform that the currency is in <code class="docutils literal notranslate"><span class="pre">Rupiahs</span></code>.</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">convert_price_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">price</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">price_unit_scale</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="s1">&#39;price_in_rp&#39;</span><span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">,</span> <span class="s1">&#39;price_unit_scale&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1794</th>
+      <th>2751</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/depok/hos111...</td>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>800,000,000.00</td>
+      <td>1,860,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah 2 Lantai SHM Semi Furnished di Rangkapan...</td>
+      <td>Rumah Strategis Bebas Banjir di Perumahan Banj...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Pancoran Mas, Depok</td>
+      <td>Pinang, Tangerang</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Jalur Telepon,  Ac, AC, Track Lari,  Taman,  ...</td>
+      <td>Keamanan, Taman</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos11130573</td>
+      <td>hos10612663</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>3.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>2.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>land_size</th>
+      <td>70 mÂ²</td>
+      <td>144 m²</td>
+    </tr>
+    <tr>
+      <th>building_size</th>
+      <td>72 mÂ²</td>
+      <td>100 m²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>2.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>2200 mah</td>
+      <td>2200 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>2,022.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>timur</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>semi furnished</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="address">
+<h3><strong>Address</strong><a class="headerlink" href="#address" title="Permalink to this headline">#</a></h3>
+<p>Address records contains (<code class="docutils literal notranslate"><span class="pre">district</span></code>, <code class="docutils literal notranslate"><span class="pre">city</span></code>). Splitting into this may be useful when reporting insight, so I will also provide the separate value of this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_district</span><span class="p">(</span><span class="n">address</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">address</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_city</span><span class="p">(</span><span class="n">address</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">address</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">get_district_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">get_district</span><span class="p">)</span>
+<span class="n">get_city_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">get_city</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">district</span><span class="o">=</span><span class="n">get_district_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">address</span><span class="p">),</span>
+    <span class="n">city</span><span class="o">=</span><span class="n">get_city_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;district&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>72</th>
+      <th>1896</th>
+      <th>438</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>address</th>
+      <td>Harapan Indah, Bekasi</td>
+      <td>Sawangan, Depok</td>
+      <td>Bekasi, Bekasi</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>Harapan Indah</td>
+      <td>Sawangan</td>
+      <td>Bekasi</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Bekasi</td>
+      <td>Depok</td>
+      <td>Bekasi</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Results is as expected. We will apply this to our Dataframe, and positions the <code class="docutils literal notranslate"><span class="pre">district</span></code> and <code class="docutils literal notranslate"><span class="pre">city</span></code> next to the <code class="docutils literal notranslate"><span class="pre">address</span></code> for convenience.</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_pair</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="n">get_city_vectd</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;district&#39;</span><span class="p">,</span> <span class="n">get_district_vectd</span><span class="p">)]</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span> <span class="ow">in</span> <span class="n">columns_pair</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1840</th>
+      <th>2777</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/depok/hos113...</td>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>484,000,000.00</td>
+      <td>3,830,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah  di Jalan Raya Bojongsari, Sawangan Depok</td>
+      <td>Rumah Cluster Narada Nykka Tangerang</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Bojong Sari, Depok</td>
+      <td>Alam Sutera, Tangerang</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>Bojong Sari</td>
+      <td>Alam Sutera</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Depok</td>
+      <td>Tangerang</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>AC, Masjid,  CCTV, Kulkas, Wastafel,  Pemanas...</td>
+      <td>Ac,  Keamanan,  Taman, CCTV, Jogging Track, J...</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos11323823</td>
+      <td>hos11132549</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>2.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>1.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>land_size</th>
+      <td>72 mÂ²</td>
+      <td>105 m²</td>
+    </tr>
+    <tr>
+      <th>building_size</th>
+      <td>45 mÂ²</td>
+      <td>134 m²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>1300 mah</td>
+      <td>3500 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>2,022.00</td>
+      <td>2,022.00</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>baru</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>utara</td>
+      <td>selatan</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>semi furnished</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In notebook <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Web</span> <span class="pre">Scraping</span></code>, we also scrap <code class="docutils literal notranslate"><span class="pre">estimated</span> <span class="pre">latitude</span> <span class="pre">and</span> <span class="pre">longitude</span></code> of each district, because the primary website doesn’t provide any coordinate information.</p>
+<p>We are going to join the <code class="docutils literal notranslate"><span class="pre">latitude</span> <span class="pre">and</span> <span class="pre">longitude</span></code> data using below codes. <code class="docutils literal notranslate"><span class="pre">Adress</span></code> column will be used as the <code class="docutils literal notranslate"><span class="pre">join</span> <span class="pre">key</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lat_long_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Scraped_Data/lat_long_complete.csv&#39;</span><span class="p">)</span>
+<span class="n">lat_long_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>lat_long</th>
+      <th>gmaps_tag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bekasi, Bekasi</td>
+      <td>(-6.2849775, 106.970127)</td>
+      <td>Kota Bks, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Setu, Bekasi</td>
+      <td>(-6.358777, 107.0348331)</td>
+      <td>Kec. Setu, Kabupaten Bekasi, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Harapan Indah, Bekasi</td>
+      <td>(-6.1817523, 106.9736839)</td>
+      <td>Harapan Indah, RT.005/RW.010, Medan Satria, Ke...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bekasi Kota, Bekasi</td>
+      <td>(-6.2845395, 106.973377)</td>
+      <td>Bekasi, Kota Bks, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cibitung, Bekasi</td>
+      <td>(-6.243801, 107.1036725)</td>
+      <td>Kec. Cibitung, Kabupaten Bekasi, Jawa Barat</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_lat_long</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">lat_long</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lat_long</span>
+
+<span class="n">split_lat_long_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">split_lat_long</span><span class="p">)</span>
+<span class="n">lat_long_df</span> <span class="o">=</span> <span class="n">lat_long_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">lat</span><span class="o">=</span><span class="n">split_lat_long_vectd</span><span class="p">(</span><span class="n">lat_long_df</span><span class="o">.</span><span class="n">lat_long</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">long</span><span class="o">=</span><span class="n">split_lat_long_vectd</span><span class="p">(</span><span class="n">lat_long_df</span><span class="o">.</span><span class="n">lat_long</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">lat_long_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>lat_long</th>
+      <th>gmaps_tag</th>
+      <th>lat</th>
+      <th>long</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bekasi, Bekasi</td>
+      <td>(-6.2849775, 106.970127)</td>
+      <td>Kota Bks, Jawa Barat</td>
+      <td>-6.28</td>
+      <td>106.97</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Setu, Bekasi</td>
+      <td>(-6.358777, 107.0348331)</td>
+      <td>Kec. Setu, Kabupaten Bekasi, Jawa Barat</td>
+      <td>-6.36</td>
+      <td>107.03</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Harapan Indah, Bekasi</td>
+      <td>(-6.1817523, 106.9736839)</td>
+      <td>Harapan Indah, RT.005/RW.010, Medan Satria, Ke...</td>
+      <td>-6.18</td>
+      <td>106.97</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bekasi Kota, Bekasi</td>
+      <td>(-6.2845395, 106.973377)</td>
+      <td>Bekasi, Kota Bks, Jawa Barat</td>
+      <td>-6.28</td>
+      <td>106.97</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cibitung, Bekasi</td>
+      <td>(-6.243801, 107.1036725)</td>
+      <td>Kec. Cibitung, Kabupaten Bekasi, Jawa Barat</td>
+      <td>-6.24</td>
+      <td>107.10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># merge dataframes</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">right</span><span class="o">=</span><span class="n">lat_long_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">]],</span>
+    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;address&#39;</span>
+<span class="p">)</span>
+<span class="c1"># re-arrange columns</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="n">cols</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">)</span>
+<span class="n">cols</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">)</span>
+<span class="n">cols_arranged</span> <span class="o">=</span> <span class="n">cols</span><span class="o">.</span><span class="n">copy</span><span class="p">()[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols_arranged</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1639</th>
+      <th>2244</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/depok/hos676...</td>
+      <td>https://www.rumah123.com/properti/jakarta-bara...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>630,000,000.00</td>
+      <td>2,400,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Prestige Bojongsari Sawangan Rumah Dp 0 Persen</td>
+      <td>Axel Termurah Terlangka Jarang Ada Glc West Eu...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Bojong Sari, Depok</td>
+      <td>Green Lake City, Jakarta Barat</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>Bojong Sari</td>
+      <td>Green Lake City</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Depok</td>
+      <td>Jakarta Barat</td>
+    </tr>
+    <tr>
+      <th>lat</th>
+      <td>-6.40</td>
+      <td>-6.19</td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td>106.74</td>
+      <td>106.70</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Jalur Telepon,  Jogging Track, Tempat Jemuran...</td>
+      <td>Keamanan 24 jam,  Kolam Renang, Taman,  Playgr...</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos6761852</td>
+      <td>hos11249282</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>3.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>1.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>land_size</th>
+      <td>72 mÂ²</td>
+      <td>90 m²</td>
+    </tr>
+    <tr>
+      <th>building_size</th>
+      <td>52 mÂ²</td>
+      <td>120 m²</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>2200 mah</td>
+      <td>4400 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>NaN</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>2.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>2,022.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>bagus</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>utara</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>1.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>unfurnished</td>
+      <td>semi furnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="land-size-building-size-electricity">
+<h3><strong>Land Size, Building Size, Electricity</strong><a class="headerlink" href="#land-size-building-size-electricity" title="Permalink to this headline">#</a></h3>
+<p>Records of these columns is still in <code class="docutils literal notranslate"><span class="pre">string</span></code> format as (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">unit</span></code>). We will extract only the number and rename the columns to inform the unit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    
+<span class="n">get_value_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">get_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">land_size</span><span class="o">=</span><span class="n">get_value_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">land_size</span><span class="p">),</span>
+    <span class="n">building_size</span><span class="o">=</span><span class="n">get_value_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">building_size</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;land_size&#39;</span><span class="p">:</span> <span class="s1">&#39;land_size_m2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;building_size&#39;</span><span class="p">:</span> <span class="s1">&#39;building_size_m2&#39;</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>3379</th>
+      <th>3505</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>4,890,000,000.00</td>
+      <td>3,750,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah Luas 2 Lantai Lokasi Premium di Gading S...</td>
+      <td>*DIJUAL*\n\nRumah di Puspitaloka\nKantong semar</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Gading Serpong IL Lago, Tangerang</td>
+      <td>BSD Puspita Loka, Tangerang</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>Gading Serpong IL Lago</td>
+      <td>BSD Puspita Loka</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Tangerang</td>
+      <td>Tangerang</td>
+    </tr>
+    <tr>
+      <th>lat</th>
+      <td>-6.26</td>
+      <td>-6.29</td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td>106.56</td>
+      <td>106.67</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Keamanan, CCTV,  Taman, Ac,  Kolam Renang,  J...</td>
+      <td>Taman, Jogging Track, Lapangan Basket, Keaman...</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos10790528</td>
+      <td>hos11360008</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>3.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>3.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>land_size_m2</th>
+      <td>180.00</td>
+      <td>299.00</td>
+    </tr>
+    <tr>
+      <th>building_size_m2</th>
+      <td>217.00</td>
+      <td>300.00</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>NaN</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>4400 mah</td>
+      <td>2200 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>2.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>NaN</td>
+      <td>2,010.00</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>sudah renovasi</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>timur laut</td>
+      <td>barat daya</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>unfurnished</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s inspect the <code class="docutils literal notranslate"><span class="pre">electricity</span></code>. The category of electricity power for residential in Indonesia should not varied vastly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">electricity</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;4400 mah&#39;, &#39;2200 mah&#39;, &#39;3500 mah&#39;, &#39;1300 mah&#39;, nan, &#39;5500 mah&#39;,
+       &#39;6600 mah&#39;, &#39;7700 mah&#39;, &#39;3300 mah&#39;, &#39;7600 mah&#39;, &#39;lainnya mah&#39;,
+       &#39;10600 mah&#39;, &#39;900 mah&#39;, &#39;47500 mah&#39;, &#39;11000 mah&#39;, &#39;8000 mah&#39;,
+       &#39;450 mah&#39;, &#39;10000 mah&#39;, &#39;53000 mah&#39;, &#39;16500 mah&#39;, &#39;13200 mah&#39;,
+       &#39;13900 mah&#39;, &#39;17600 mah&#39;, &#39;23000 mah&#39;, &#39;41500 mah&#39;, &#39;12700 mah&#39;,
+       &#39;13300 mah&#39;, &#39;33000 mah&#39;, &#39;24000 mah&#39;, &#39;22000 mah&#39;, &#39;9500 mah&#39;],
+      dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Later we can replace the missing <code class="docutils literal notranslate"><span class="pre">nan</span></code> value with <code class="docutils literal notranslate"><span class="pre">lainnya</span> <span class="pre">mah</span></code>. And also, the electricity is naturally has an <code class="docutils literal notranslate"><span class="pre">ordinal</span></code> order, which must be considered in later analysis.</p>
+</section>
+<section id="building-age">
+<h3><strong>Building Age</strong><a class="headerlink" href="#building-age" title="Permalink to this headline">#</a></h3>
+<p>Let’s inspect the <code class="docutils literal notranslate"><span class="pre">Building</span> <span class="pre">Age</span></code> columns:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">building_age</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 2017.,    nan,  2016.,  2013.,  2014.,  2015.,  2022.,  2020.,
+        2010.,  2018.,  2011.,  2021.,  2006.,  2000.,  2023.,  2019.,
+        2007.,  2009.,  2012.,  2004.,  1985.,  2008.,  2001.,  2005.,
+        1994.,  2003.,  2052.,  2002.,  2024.,  1995.,  1870.,  1970.,
+        2025.,  1986.,  1980.,  1996.,  1993., 20010.,  1990.,  1999.,
+       20012.,  1988.,  1982.,  1998.,  1976.,  1977.,  1973.,  1901.,
+        1992.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some concerns:</p>
+<ol class="simple">
+<li><p>Based on its values, it is best to be explained as <code class="docutils literal notranslate"><span class="pre">year_built</span></code>. We will rename the columns.</p></li>
+<li><p>Unfortunately we don’t find the <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">listed</span></code> information in the listing info since it is best to explain <em>what owner think their house priced in the year that the house is listed and also considering house age since first it been built</em>. But it is okay to assumme that at the time the listing is still advertised in the website then owner <em>did</em> consider the value adhere to current year valuation. So we can extract <code class="docutils literal notranslate"><span class="pre">building_age</span> <span class="pre">=</span> <span class="pre">year_built</span> <span class="pre">-</span> <span class="pre">2022</span></code>.</p></li>
+<li><p>There are some values that ambiguous: <code class="docutils literal notranslate"><span class="pre">2052,</span> <span class="pre">20010,</span> <span class="pre">20012,</span> <span class="pre">2025</span></code>. For values <code class="docutils literal notranslate"><span class="pre">2025</span></code>, it may be because house is available after future housing project will be completed at <code class="docutils literal notranslate"><span class="pre">2025</span></code> (but this justification is still not make sense for <code class="docutils literal notranslate"><span class="pre">2052</span></code>)</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;building_age&#39;</span><span class="p">:</span> <span class="s1">&#39;year_built&#39;</span><span class="p">},</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2052</span><span class="p">,</span> <span class="mi">20010</span><span class="p">,</span> <span class="mi">20012</span><span class="p">,</span> <span class="mi">2025</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">year_built</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">years</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>761</th>
+      <th>1571</th>
+      <th>2119</th>
+      <th>2287</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/bogor/hos111...</td>
+      <td>https://www.rumah123.com/properti/depok/hos113...</td>
+      <td>https://www.rumah123.com/properti/jakarta-utar...</td>
+      <td>https://www.rumah123.com/properti/jakarta-sela...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>570,000,000.00</td>
+      <td>370,000,000.00</td>
+      <td>7,700,000,000.00</td>
+      <td>106,000,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>rumah 1 Lanta murah angsuran 2jutaan</td>
+      <td>RUMAH MEWAH DENGAN DESAIN EROPA MURAH DI CITAYAM</td>
+      <td>Rumah Bukit Golf Mediterania, 2.5 Lantai, Pant...</td>
+      <td>Rumah murah di jalan widya chandra senayan keb...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Sentul City, Bogor</td>
+      <td>Citayam, Depok</td>
+      <td>Pantai Indah Kapuk, Jakarta Utara</td>
+      <td>Kebayoran Baru, Jakarta Selatan</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>Sentul City</td>
+      <td>Citayam</td>
+      <td>Pantai Indah Kapuk</td>
+      <td>Kebayoran Baru</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Bogor</td>
+      <td>Depok</td>
+      <td>Jakarta Utara</td>
+      <td>Jakarta Selatan</td>
+    </tr>
+    <tr>
+      <th>lat</th>
+      <td>-6.52</td>
+      <td>-6.44</td>
+      <td>-6.10</td>
+      <td>-6.24</td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td>106.85</td>
+      <td>106.74</td>
+      <td>106.74</td>
+      <td>106.80</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Jalur Telepon, Tempat Jemuran,  One Gate Syst...</td>
+      <td>Tempat Jemuran,  Akses Parkir,  One Gate Syste...</td>
+      <td>Keamanan 24 jam, Akses Parkir, Jalur Telepon, ...</td>
+      <td>Kolam Renang,  Taman, Jalur Telepon,  CCTV, K...</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos11148142</td>
+      <td>hos11336748</td>
+      <td>hos11153674</td>
+      <td>hos11260904</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>2.00</td>
+      <td>NaN</td>
+      <td>4.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>land_size_m2</th>
+      <td>72.00</td>
+      <td>65.00</td>
+      <td>180.00</td>
+      <td>1,479.00</td>
+    </tr>
+    <tr>
+      <th>building_size_m2</th>
+      <td>45.00</td>
+      <td>36.00</td>
+      <td>250.00</td>
+      <td>1,000.00</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>1300 mah</td>
+      <td>1300 mah</td>
+      <td>NaN</td>
+      <td>11000 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>year_built</th>
+      <td>2,052.00</td>
+      <td>2,025.00</td>
+      <td>20,010.00</td>
+      <td>20,012.00</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>baru</td>
+      <td>butuh renovasi</td>
+      <td>bagus</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>timur</td>
+      <td>selatan</td>
+      <td>utara</td>
+      <td>selatan</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>unfurnished</td>
+      <td>unfurnished</td>
+      <td>semi furnished</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>After inspecting each of the records, it is safe to say that:</p>
+<ol class="simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">year_built</span> <span class="pre">&gt;</span> <span class="pre">2022</span></code>, let’s just keep the value as it is, since it is better be explained as <code class="docutils literal notranslate"><span class="pre">building</span> <span class="pre">age</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">year_built</span> <span class="pre">in</span> <span class="pre">[20010,</span> <span class="pre">20012]</span></code>, based on <code class="docutils literal notranslate"><span class="pre">property_condition</span></code>, let’s assume best case scenario to be <code class="docutils literal notranslate"><span class="pre">2010</span> <span class="pre">and</span> <span class="pre">2012</span></code>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">building_age</span><span class="p">(</span><span class="n">year_built</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">year_built</span> <span class="o">&lt;=</span> <span class="mi">2022</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">2022</span> <span class="o">-</span> <span class="n">year_built</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">year_built</span> <span class="o">&gt;</span> <span class="mi">2022</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">year_built</span>
+
+<span class="n">building_age_vectd</span> <span class="o">=</span> <span class="n">vectorize</span><span class="p">(</span><span class="n">building_age</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">year_built</span> <span class="o">==</span> <span class="mi">20010</span><span class="p">,</span> <span class="s1">&#39;year_built&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2010</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">year_built</span> <span class="o">==</span> <span class="mi">20012</span><span class="p">,</span> <span class="s1">&#39;year_built&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2012</span>
+<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;building_age&#39;</span><span class="p">,</span> <span class="n">building_age_vectd</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">year_built</span><span class="p">))</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">building_age</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>d:\anaconda3\envs\general_ds\lib\site-packages\numpy\lib\function_base.py:2192: RuntimeWarning: invalid value encountered in ? (vectorized)
+  outputs = ufunc(*inputs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  5.,  nan,   6.,   9.,   8.,   7.,   0.,   2.,  12.,   4.,  11.,
+         1.,  16.,  22.,   3.,  15.,  13.,  10.,  18.,  37.,  14.,  21.,
+        17.,  28.,  19.,  20.,  27., 152.,  52.,  36.,  42.,  26.,  29.,
+        32.,  23.,  34.,  40.,  24.,  46.,  45.,  49., 121.,  30.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="considering-the-missing-value">
+<h2>5. Considering the Missing Value<a class="headerlink" href="#considering-the-missing-value" title="Permalink to this headline">#</a></h2>
+<p>Missing values for column fields explained below can naturally be considired as <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">provided</span></code> so can be replaced by <code class="docutils literal notranslate"><span class="pre">0</span></code> (<code class="docutils literal notranslate"><span class="pre">lainnya</span> <span class="pre">mah</span></code> for missing electricity type):</p>
+<ol class="simple">
+<li><p>Maid Bedrooms</p></li>
+<li><p>Maid Bathrooms</p></li>
+<li><p>Carports</p></li>
+<li><p>Garages</p></li>
+<li><p>Electricity</p></li>
+</ol>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;maid_bedrooms&#39;</span><span class="p">,</span> <span class="s1">&#39;maid_bathrooms&#39;</span><span class="p">,</span> <span class="s1">&#39;carports&#39;</span><span class="p">,</span> <span class="s1">&#39;garages&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">fill_columns</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;lainnya mah&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">maid_bedrooms</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">df</span><span class="o">.</span><span class="n">maid_bathrooms</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">df</span><span class="o">.</span><span class="n">carports</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">df</span><span class="o">.</span><span class="n">garages</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">df</span><span class="o">.</span><span class="n">electricity</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>url</th>
+      <th>price_in_rp</th>
+      <th>title</th>
+      <th>address</th>
+      <th>district</th>
+      <th>city</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>facilities</th>
+      <th>property_type</th>
+      <th>...</th>
+      <th>electricity</th>
+      <th>maid_bedrooms</th>
+      <th>maid_bathrooms</th>
+      <th>floors</th>
+      <th>building_age</th>
+      <th>year_built</th>
+      <th>property_condition</th>
+      <th>building_orientation</th>
+      <th>garages</th>
+      <th>furnishing</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>0 rows × 27 columns</p>
+</div></div></div>
+</div>
+<p>Other than aboves column fields, missing value is considered missing information (since it explains the essential characteristic of the house) and will be evaluated in later analysis.</p>
+</section>
+<section id="pre-processed-data">
+<h2>6. Pre-Processed Data<a class="headerlink" href="#pre-processed-data" title="Permalink to this headline">#</a></h2>
+<p>Our preprocessed data looks like below sample:</p>
+<div class="cell tag_output-scroll tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2971</th>
+      <th>1311</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/tangerang/ho...</td>
+      <td>https://www.rumah123.com/properti/bogor/hos111...</td>
+    </tr>
+    <tr>
+      <th>price_in_rp</th>
+      <td>1,900,000,000.00</td>
+      <td>390,000,000.00</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Dijual Rumah Neo Catalonia bsd tangerang. Baru</td>
+      <td>Murah Di Pesona Cilebut Dekat Stasiun Rumah Ca...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>BSD City, Tangerang</td>
+      <td>Cilebut, Bogor</td>
+    </tr>
+    <tr>
+      <th>district</th>
+      <td>BSD City</td>
+      <td>Cilebut</td>
+    </tr>
+    <tr>
+      <th>city</th>
+      <td>Tangerang</td>
+      <td>Bogor</td>
+    </tr>
+    <tr>
+      <th>lat</th>
+      <td>-6.30</td>
+      <td>-6.53</td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td>106.59</td>
+      <td>106.79</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Keamanan, Kitchen Set, Taman</td>
+      <td>Taman, Jalur Telepon,  Track Lari,  Jalur Tel...</td>
+    </tr>
+    <tr>
+      <th>property_type</th>
+      <td>rumah</td>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>ads_id</th>
+      <td>hos11365136</td>
+      <td>hos11159745</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>3.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>land_size_m2</th>
+      <td>98.00</td>
+      <td>72.00</td>
+    </tr>
+    <tr>
+      <th>building_size_m2</th>
+      <td>100.00</td>
+      <td>45.00</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>1.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>shm - sertifikat hak milik</td>
+      <td>shm - sertifikat hak milik</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>2200 mah</td>
+      <td>1300 mah</td>
+    </tr>
+    <tr>
+      <th>maid_bedrooms</th>
+      <td>1.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>maid_bathrooms</th>
+      <td>1.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>2.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>building_age</th>
+      <td>0.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>year_built</th>
+      <td>2,022.00</td>
+      <td>2,018.00</td>
+    </tr>
+    <tr>
+      <th>property_condition</th>
+      <td>baru</td>
+      <td>bagus</td>
+    </tr>
+    <tr>
+      <th>building_orientation</th>
+      <td>NaN</td>
+      <td>selatan</td>
+    </tr>
+    <tr>
+      <th>garages</th>
+      <td>0.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>semi furnished</td>
+      <td>unfurnished</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Scraped_Data/jabodetabek_house_price.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Linear Regression Model of Jabodetabek House Price and its Implementation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="2%20-%20Data%20Exploration%20and%20Analysis.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Data Exploration and Analysis of House Price Offers</strong></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nafis Barizki<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,2128 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>LendingClub Dataset - A collection of Peer-to-Peer Individual Loan History &#8212; Implementing Machine Learning Model for Loan Classification and Selection</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exploratory Analysis of LendingClub Loan Data" href="2_Data_exploration.html" />
+    <link rel="prev" title="Implementing Machine Learning Model to Predict and Select Loan" href="README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Implementing Machine Learning Model for Loan Classification and Selection</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Implementing Machine Learning Model to Predict and Select Loan
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   LendingClub Dataset - A collection of Peer-to-Peer Individual Loan History
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_Data_exploration.html">
+   Exploratory Analysis of LendingClub Loan Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Model_development.html">
+   Implementing Machine Learning Model to Predict and Select Loan
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nbarizki/creditdefaultml/main?urlpath=tree/1_Dataset_indentification_and_preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nbarizki/creditdefaultml"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nbarizki/creditdefaultml/issues/new?title=Issue%20on%20page%20%2F1_Dataset_indentification_and_preprocessing.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/1_Dataset_indentification_and_preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-settings">
+     <strong>
+      Basic Settings
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-brief-explanation-about-the-data">
+   2. A Brief Explanation about the Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#source">
+     <strong>
+      Source
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identifying-dataset-characteristic">
+   3. Identifying Dataset Characteristic
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#duplicated-records">
+     <strong>
+      Duplicated Records
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#features-and-dimension">
+     <strong>
+      Features and Dimension
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-about-the-dataset-features">
+     <strong>
+      More about the Dataset Features
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-the-datatypes-of-each-features">
+     <strong>
+      Checking the Datatypes of Each Features
+     </strong>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#numerical-data">
+       <em>
+        Numerical Data
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#object-data">
+       <em>
+        Object Data
+       </em>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#target-feature-loan-status">
+     <strong>
+      Target Feature:
+      <code class="docutils literal notranslate">
+       <span class="pre">
+        loan_status
+       </span>
+      </code>
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#custom-transformer-for-dataset-preprocessing">
+   4. Custom Transformer for Dataset Preprocessing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-s-next">
+   5. What’s Next
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>LendingClub Dataset - A collection of Peer-to-Peer Individual Loan History</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-settings">
+     <strong>
+      Basic Settings
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-brief-explanation-about-the-data">
+   2. A Brief Explanation about the Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#source">
+     <strong>
+      Source
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identifying-dataset-characteristic">
+   3. Identifying Dataset Characteristic
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#duplicated-records">
+     <strong>
+      Duplicated Records
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#features-and-dimension">
+     <strong>
+      Features and Dimension
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-about-the-dataset-features">
+     <strong>
+      More about the Dataset Features
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-the-datatypes-of-each-features">
+     <strong>
+      Checking the Datatypes of Each Features
+     </strong>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#numerical-data">
+       <em>
+        Numerical Data
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#object-data">
+       <em>
+        Object Data
+       </em>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#target-feature-loan-status">
+     <strong>
+      Target Feature:
+      <code class="docutils literal notranslate">
+       <span class="pre">
+        loan_status
+       </span>
+      </code>
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#custom-transformer-for-dataset-preprocessing">
+   4. Custom Transformer for Dataset Preprocessing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-s-next">
+   5. What’s Next
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="lendingclub-dataset-a-collection-of-peer-to-peer-individual-loan-history">
+<h1>LendingClub Dataset - A collection of Peer-to-Peer Individual Loan History<a class="headerlink" href="#lendingclub-dataset-a-collection-of-peer-to-peer-individual-loan-history" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>This notebook is an introduction to <em>loan dataset</em> that will be utilized as a case example in building classification machine learning model. This notebook is purposed to show each of the features characteristic hence no in-depth analysis or assumption will be performed in this notebook.</p>
+<section id="basic-settings">
+<h3><strong>Basic Settings</strong><a class="headerlink" href="#basic-settings" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+
+<span class="n">loan_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s1">&#39;dataset\lc_2010-2015.csv&#39;</span><span class="p">,</span> 
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="s1">&#39;verification_status_joint&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-brief-explanation-about-the-data">
+<h2>2. A Brief Explanation about the Data<a class="headerlink" href="#a-brief-explanation-about-the-data" title="Permalink to this headline">#</a></h2>
+<p>LendingClub is a US peer-to-peer lending company, headquartered in San Francisco, California. It was the first peer-to-peer lender to register its offerings as securities with the Securities and Exchange Commission (SEC), and to offer loan trading on a secondary market.</p>
+<p>LendingClub enables borrowers to create unsecured personal loans between <span class="math notranslate nohighlight">\(1,000 and \)</span>40,000. The standard loan period is three years. Investors can search and browse the loan listings on Lending Club website and select loans that they want to invest in based on the information supplied about the borrower, amount of loan, loan grade, and loan purpose. Investors make money from interest. Lending Club makes money by charging borrowers an origination fee and investors a service fee.</p>
+<p>However, peer-to-peer individual loan currently is not available.</p>
+<section id="source">
+<h3><strong>Source</strong><a class="headerlink" href="#source" title="Permalink to this headline">#</a></h3>
+<p>The dataset is obtained from: <a class="reference external" href="https://www.kaggle.com/datasets/husainsb/lendingclub-issued-loans">https://www.kaggle.com/datasets/husainsb/lendingclub-issued-loans</a></p>
+</section>
+</section>
+<section id="identifying-dataset-characteristic">
+<h2>3. Identifying Dataset Characteristic<a class="headerlink" href="#identifying-dataset-characteristic" title="Permalink to this headline">#</a></h2>
+<section id="duplicated-records">
+<h3><strong>Duplicated Records</strong><a class="headerlink" href="#duplicated-records" title="Permalink to this headline">#</a></h3>
+<p>Before going further in identifying the dataset dimension, let’s clear the duplicated observations first, if any.</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># duplicated loan record</span>
+<span class="n">loan_df</span><span class="p">[</span><span class="n">loan_df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>member_id</th>
+      <th>loan_amnt</th>
+      <th>funded_amnt</th>
+      <th>funded_amnt_inv</th>
+      <th>term</th>
+      <th>int_rate</th>
+      <th>installment</th>
+      <th>grade</th>
+      <th>sub_grade</th>
+      <th>emp_title</th>
+      <th>emp_length</th>
+      <th>home_ownership</th>
+      <th>annual_inc</th>
+      <th>verification_status</th>
+      <th>issue_d</th>
+      <th>loan_status</th>
+      <th>pymnt_plan</th>
+      <th>desc</th>
+      <th>purpose</th>
+      <th>title</th>
+      <th>zip_code</th>
+      <th>addr_state</th>
+      <th>dti</th>
+      <th>delinq_2yrs</th>
+      <th>earliest_cr_line</th>
+      <th>inq_last_6mths</th>
+      <th>mths_since_last_delinq</th>
+      <th>mths_since_last_record</th>
+      <th>open_acc</th>
+      <th>pub_rec</th>
+      <th>revol_bal</th>
+      <th>revol_util</th>
+      <th>total_acc</th>
+      <th>initial_list_status</th>
+      <th>out_prncp</th>
+      <th>out_prncp_inv</th>
+      <th>total_pymnt</th>
+      <th>total_pymnt_inv</th>
+      <th>total_rec_prncp</th>
+      <th>total_rec_int</th>
+      <th>total_rec_late_fee</th>
+      <th>recoveries</th>
+      <th>collection_recovery_fee</th>
+      <th>last_pymnt_d</th>
+      <th>last_pymnt_amnt</th>
+      <th>next_pymnt_d</th>
+      <th>last_credit_pull_d</th>
+      <th>collections_12_mths_ex_med</th>
+      <th>mths_since_last_major_derog</th>
+      <th>policy_code</th>
+      <th>application_type</th>
+      <th>annual_inc_joint</th>
+      <th>dti_joint</th>
+      <th>verification_status_joint</th>
+      <th>acc_now_delinq</th>
+      <th>tot_coll_amt</th>
+      <th>tot_cur_bal</th>
+      <th>open_acc_6m</th>
+      <th>open_il_12m</th>
+      <th>open_il_24m</th>
+      <th>mths_since_rcnt_il</th>
+      <th>total_bal_il</th>
+      <th>il_util</th>
+      <th>open_rv_12m</th>
+      <th>open_rv_24m</th>
+      <th>max_bal_bc</th>
+      <th>all_util</th>
+      <th>total_rev_hi_lim</th>
+      <th>inq_fi</th>
+      <th>total_cu_tl</th>
+      <th>inq_last_12m</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="features-and-dimension">
+<h3><strong>Features and Dimension</strong><a class="headerlink" href="#features-and-dimension" title="Permalink to this headline">#</a></h3>
+<p>Let’s discover each fields and records of the <em>Lending Club</em> datasets!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 887379 entries, 0 to 887378
+Data columns (total 72 columns):
+ #   Column                       Non-Null Count   Dtype  
+---  ------                       --------------   -----  
+ 0   id                           887379 non-null  int64  
+ 1   member_id                    887379 non-null  int64  
+ 2   loan_amnt                    887379 non-null  float64
+ 3   funded_amnt                  887379 non-null  float64
+ 4   funded_amnt_inv              887379 non-null  float64
+ 5   term                         887379 non-null  object 
+ 6   int_rate                     887379 non-null  float64
+ 7   installment                  887379 non-null  float64
+ 8   grade                        887379 non-null  object 
+ 9   sub_grade                    887379 non-null  object 
+ 10  emp_title                    835917 non-null  object 
+ 11  emp_length                   842554 non-null  object 
+ 12  home_ownership               887379 non-null  object 
+ 13  annual_inc                   887375 non-null  float64
+ 14  verification_status          887379 non-null  object 
+ 15  issue_d                      887379 non-null  object 
+ 16  loan_status                  887379 non-null  object 
+ 17  pymnt_plan                   887379 non-null  object 
+ 18  desc                         126028 non-null  object 
+ 19  purpose                      887379 non-null  object 
+ 20  title                        887227 non-null  object 
+ 21  zip_code                     887379 non-null  object 
+ 22  addr_state                   887379 non-null  object 
+ 23  dti                          887379 non-null  float64
+ 24  delinq_2yrs                  887350 non-null  float64
+ 25  earliest_cr_line             887350 non-null  object 
+ 26  inq_last_6mths               887350 non-null  float64
+ 27  mths_since_last_delinq       433067 non-null  float64
+ 28  mths_since_last_record       137053 non-null  float64
+ 29  open_acc                     887350 non-null  float64
+ 30  pub_rec                      887350 non-null  float64
+ 31  revol_bal                    887379 non-null  float64
+ 32  revol_util                   886877 non-null  float64
+ 33  total_acc                    887350 non-null  float64
+ 34  initial_list_status          887379 non-null  object 
+ 35  out_prncp                    887379 non-null  float64
+ 36  out_prncp_inv                887379 non-null  float64
+ 37  total_pymnt                  887379 non-null  float64
+ 38  total_pymnt_inv              887379 non-null  float64
+ 39  total_rec_prncp              887379 non-null  float64
+ 40  total_rec_int                887379 non-null  float64
+ 41  total_rec_late_fee           887379 non-null  float64
+ 42  recoveries                   887379 non-null  float64
+ 43  collection_recovery_fee      887379 non-null  float64
+ 44  last_pymnt_d                 869720 non-null  object 
+ 45  last_pymnt_amnt              887379 non-null  float64
+ 46  next_pymnt_d                 634408 non-null  object 
+ 47  last_credit_pull_d           887326 non-null  object 
+ 48  collections_12_mths_ex_med   887234 non-null  float64
+ 49  mths_since_last_major_derog  221703 non-null  float64
+ 50  policy_code                  887379 non-null  float64
+ 51  application_type             887379 non-null  object 
+ 52  annual_inc_joint             511 non-null     float64
+ 53  dti_joint                    509 non-null     float64
+ 54  verification_status_joint    511 non-null     object 
+ 55  acc_now_delinq               887350 non-null  float64
+ 56  tot_coll_amt                 817103 non-null  float64
+ 57  tot_cur_bal                  817103 non-null  float64
+ 58  open_acc_6m                  21372 non-null   float64
+ 59  open_il_12m                  21372 non-null   float64
+ 60  open_il_24m                  21372 non-null   float64
+ 61  mths_since_rcnt_il           20810 non-null   float64
+ 62  total_bal_il                 21372 non-null   float64
+ 63  il_util                      18617 non-null   float64
+ 64  open_rv_12m                  21372 non-null   float64
+ 65  open_rv_24m                  21372 non-null   float64
+ 66  max_bal_bc                   21372 non-null   float64
+ 67  all_util                     21372 non-null   float64
+ 68  total_rev_hi_lim             817103 non-null  float64
+ 69  inq_fi                       21372 non-null   float64
+ 70  total_cu_tl                  21372 non-null   float64
+ 71  inq_last_12m                 21372 non-null   float64
+dtypes: float64(48), int64(2), object(22)
+memory usage: 487.5+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Takeaway:</p>
+<ul class="simple">
+<li><p>No. of rows/observations = 887,379</p></li>
+<li><p>No. of columns/features = 72</p></li>
+</ul>
+</section>
+<section id="more-about-the-dataset-features">
+<h3><strong>More about the Dataset Features</strong><a class="headerlink" href="#more-about-the-dataset-features" title="Permalink to this headline">#</a></h3>
+<p>To understand more about context of each fields, it is best generalized them into 3 main categories:</p>
+<ul class="simple">
+<li><p>Data fields related to <strong>applicant’s profile</strong>, including their past credit history. This includes below fields:</p></li>
+</ul>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th></th>
+      <th>Loan Data Field Label</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>member_id</td>
+      <td>A unique LC assigned Id for the borrower member.</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>emp_title</td>
+      <td>The job title supplied by the Borrower when applying for the loan.</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>emp_length</td>
+      <td>Employment length in years. Possible values are between 0 and 10 where 0 means less than one year and 10 means ten or more years.</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>home_ownership</td>
+      <td>The home ownership status provided by the borrower during registration. Our values are: RENT, OWN, MORTGAGE, OTHER.</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>annual_inc</td>
+      <td>The self-reported annual income provided by the borrower during registration.</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>verification_status</td>
+      <td>Indicates if income was verified by LC, not verified, or if the income source was verified</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>dti</td>
+      <td>A ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested LC loan, divided by the borrower’s self-reported monthly income.</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>delinq_2yrs</td>
+      <td>The number of 30+ days past-due incidences of delinquency in the borrower's credit file for the past 2 years</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>earliest_cr_line</td>
+      <td>The month the borrower's earliest reported credit line was opened</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>inq_last_6mths</td>
+      <td>The number of inquiries in past 6 months (excluding auto and mortgage inquiries)</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>mths_since_last_delinq</td>
+      <td>The number of months since the borrower's last delinquency.</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>mths_since_last_record</td>
+      <td>The number of months since the last public record.</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>open_acc</td>
+      <td>The number of open credit lines in the borrower's credit file.</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>revol_bal</td>
+      <td>Total credit revolving balance</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>revol_util</td>
+      <td>Revolving line utilization rate, or the amount of credit the borrower is using relative to all available revolving credit.  </td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>total_acc</td>
+      <td>The total number of credit lines currently in the borrower's credit file.</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>collections_12_mths_ex_med</td>
+      <td>Number of collections in 12 months excluding medical collections</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>mths_since_last_major_derog</td>
+      <td>Months since most recent 90-day or worse rating</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>policy_code</td>
+      <td>publicly available policy_code=1. new products not publicly available policy_code=2</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>annual_inc_joint</td>
+      <td>The total number of credit lines currently in the borrower's credit file.</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>dti_joint</td>
+      <td>A ratio calculated using the co-borrowers' total monthly payments on the total debt obligations, excluding mortgages and the requested LC loan, divided by the co-borrowers' combined self-reported monthly income. </td>
+    </tr> 
+    <tr>
+      <th>54</th>
+      <td>verification_status_joint</td>
+      <td>Indicates if the co-borrowers' joint income was verified by LC, not verified, or if the income source was verified. </td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>acc_now_delinq</td>
+      <td>The number of accounts on which the borrower is now delinquent.</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>tot_coll_amt</td>
+      <td>Total collection amounts ever owed</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>tot_cur_bal</td>
+      <td>Total current balance of all accounts</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>open_acc_6m</td>
+      <td>Number of open trades in last 6 months</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>open_il_12m</td>
+      <td>Number of installment accounts opened in past 12 months</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>open_il_24m</td>
+      <td>Number of installment accounts opened in past 24 months</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>mths_since_rcnt_il</td>
+      <td>Months since most recent installment accounts opened</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>total_bal_il</td>
+      <td>Total current balance of all installment accounts</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>il_util</td>
+      <td>Ratio of total current balance to high credit/credit limit on all install acct</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>open_rv_12m</td>
+      <td>Number of revolving trades opened in past 12 months</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>open_rv_24m</td>
+      <td>Number of revolving trades opened in past 24 months</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>max_bal_bc</td>
+      <td>Maximum current balance owed on all revolving accounts</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>all_util</td>
+      <td>Balance to credit limit on all trades</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>total_rev_hi_lim</td>
+      <td>Total revolving high credit/credit limit</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>inq_fi</td>
+      <td>Number of personal finance inquiries</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>total_cu_tl</td>
+      <td>Number of finance trades</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>inq_last_12m</td>
+      <td>Number of credit inquiries in past 12 months</td>
+    </tr>                                                                          
+  </tbody>
+</table><ul class="simple">
+<li><p>Data fields related to applicant’s <strong>loan profile</strong> that registered. This includes below fields:</p></li>
+</ul>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th></th>
+      <th>Loan Data Field Label</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>id</td>
+      <td>A unique LC assigned ID for the loan listing.</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>loan_amnt</td>
+      <td>The listed amount of the loan applied for by the borrower. If at some point in time, the credit department reduces the loan amount, then it will be reflected in this value.</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>term</td>
+      <td>The number of payments on the loan. Values are in months and can be either 36 or 60.</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>int_rate</td>
+      <td>Interest Rate on the loan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>installment</td>
+      <td>The monthly payment owed by the borrower if the loan originates.</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>grade</td>
+      <td>LC assigned loan grade</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>sub_grade</td>
+      <td>LC assigned loan subgrade</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>pymnt_plan</td>
+      <td>Indicates if a payment plan has been put in place for the loan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>desc</td>
+      <td>Loan description provided by the borrower</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>purpose</td>
+      <td>A category provided by the borrower for the loan request. </td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>title</td>
+      <td>The loan title provided by the borrower</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>zip_code</td>
+      <td>The first 3 numbers of the zip code provided by the borrower in the loan application.</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>addr_state</td>
+      <td>The state provided by the borrower in the loan application</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>policy_code</td>
+      <td>publicly available policy_code=1, new products not publicly available policy_code=2</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>application_type</td>
+      <td>Indicates whether the loan is an individual application or a joint application with two co-borrowers</td>
+    </tr>
+        <tr>
+      <th>38</th>
+      <td>total_pymnt</td>
+      <td>Payments received to date for total amount funded</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>total_pymnt_inv</td>
+      <td>Payments received to date for portion of total amount funded by investors</td>
+    </tr>
+  </tbody>
+</table><ul class="simple">
+<li><p>Data fields related to <strong>post-originated loan data</strong>, which describes each of the loan’s performance after originated to the borrower.</p></li>
+</ul>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th></th>
+      <th>Loan Data Field Label</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>funded_amnt</td>
+      <td>The total amount committed to that loan at that point in time.</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>funded_amnt_inv</td>
+      <td>The total amount committed by investors for that loan at that point in time.</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>issue_d</td>
+      <td>The month which the loan was funded</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>loan_status</td>
+      <td>Current status of the loan</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>initial_list_status</td>
+      <td>The initial listing status of the loan. Possible values are – W (Whole), F (Fractional)</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>out_prncp</td>
+      <td>Remaining outstanding principal for total amount funded</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>out_prncp_inv</td>
+      <td>Remaining outstanding principal for portion of total amount funded by investors</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>total_rec_prncp</td>
+      <td>Principal received to date</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>total_rec_int</td>
+      <td>Interest received to date</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>total_rec_late_fee</td>
+      <td>Late fees received to date</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>recoveries</td>
+      <td>post charge off gross recovery</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>collection_recovery_fee</td>
+      <td>post charge off collection fee</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>last_pymnt_d</td>
+      <td>Last month payment was received</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>last_pymnt_amnt</td>
+      <td>Last total payment amount received</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>next_pymnt_d</td>
+      <td>Next scheduled payment date</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>last_credit_pull_d</td>
+      <td>The most recent month LC pulled credit for this loan</td>
+    </tr> 
+  </tbody>
+</table></section>
+<section id="checking-the-datatypes-of-each-features">
+<h3><strong>Checking the Datatypes of Each Features</strong><a class="headerlink" href="#checking-the-datatypes-of-each-features" title="Permalink to this headline">#</a></h3>
+<p>If we inspect features description from previous section thoroughly, we can identify clearly which features contains these characteristics:</p>
+<ol class="simple">
+<li><p>For numerical data, which are the discrete and continuous data.</p></li>
+<li><p>For string object, which are the categorical data and which are the unique string (most often recorded by manual input e.g. from typing)</p></li>
+</ol>
+<section id="numerical-data">
+<h4><em>Numerical Data</em><a class="headerlink" href="#numerical-data" title="Permalink to this headline">#</a></h4>
+<p>We already identified that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> has parsed the numerical features resulting into <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span></code>, which indicate that <code class="docutils literal notranslate"><span class="pre">pandas</span></code> has tried to <em>idetify</em> those features accordingly. We only need to inspect <em>wrongly-identified</em> datatypes by inspecting each of <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span></code> data.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">int</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_types</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="n">data_types</span><span class="p">[</span><span class="n">data_types</span> <span class="o">==</span> <span class="s1">&#39;int64&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id           int64
+member_id    int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">float</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_types</span><span class="p">[</span><span class="n">data_types</span> <span class="o">==</span> <span class="s1">&#39;float64&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loan_amnt                      float64
+funded_amnt                    float64
+funded_amnt_inv                float64
+int_rate                       float64
+installment                    float64
+annual_inc                     float64
+dti                            float64
+delinq_2yrs                    float64
+inq_last_6mths                 float64
+mths_since_last_delinq         float64
+mths_since_last_record         float64
+open_acc                       float64
+pub_rec                        float64
+revol_bal                      float64
+revol_util                     float64
+total_acc                      float64
+out_prncp                      float64
+out_prncp_inv                  float64
+total_pymnt                    float64
+total_pymnt_inv                float64
+total_rec_prncp                float64
+total_rec_int                  float64
+total_rec_late_fee             float64
+recoveries                     float64
+collection_recovery_fee        float64
+last_pymnt_amnt                float64
+collections_12_mths_ex_med     float64
+mths_since_last_major_derog    float64
+policy_code                    float64
+annual_inc_joint               float64
+dti_joint                      float64
+acc_now_delinq                 float64
+tot_coll_amt                   float64
+tot_cur_bal                    float64
+open_acc_6m                    float64
+open_il_12m                    float64
+open_il_24m                    float64
+mths_since_rcnt_il             float64
+total_bal_il                   float64
+il_util                        float64
+open_rv_12m                    float64
+open_rv_24m                    float64
+max_bal_bc                     float64
+all_util                       float64
+total_rev_hi_lim               float64
+inq_fi                         float64
+total_cu_tl                    float64
+inq_last_12m                   float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Takeaway:</p>
+<ul class="simple">
+<li><p>Feature <code class="docutils literal notranslate"><span class="pre">delinq_2yrs</span></code>, <code class="docutils literal notranslate"><span class="pre">open_acc</span></code>, <code class="docutils literal notranslate"><span class="pre">pub_rec</span></code>,<code class="docutils literal notranslate"><span class="pre">total_acc</span></code>, <code class="docutils literal notranslate"><span class="pre">collections_12_mths_ex_med</span></code>, <code class="docutils literal notranslate"><span class="pre">policy_code</span></code>, <code class="docutils literal notranslate"><span class="pre">acc_now_delinq</span></code>,  should be <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cast_to_int</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;delinq_2yrs&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;pub_rec&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;total_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;collections_12_mths_ex_med&#39;</span><span class="p">,</span> <span class="s1">&#39;policy_code&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;acc_now_delinq&#39;</span>
+    <span class="p">]</span>
+
+<span class="k">for</span> <span class="n">int_feature</span> <span class="ow">in</span> <span class="n">cast_to_int</span><span class="p">:</span>
+    <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">int_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">int_feature</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="object-data">
+<h4><em>Object Data</em><a class="headerlink" href="#object-data" title="Permalink to this headline">#</a></h4>
+<p>For string object data, it is easily recognizable since categorical data should contain small unique observations, while manually-input data should have high-cardinality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>emp_title                    299271
+desc                         124469
+title                         63144
+zip_code                        935
+earliest_cr_line                697
+last_credit_pull_d              103
+issue_d                         103
+next_pymnt_d                    100
+last_pymnt_d                     98
+addr_state                       51
+sub_grade                        35
+purpose                          14
+emp_length                       11
+loan_status                      10
+grade                             7
+home_ownership                    6
+verification_status_joint         3
+verification_status               3
+initial_list_status               2
+pymnt_plan                        2
+application_type                  2
+term                              2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>After inspecting each of the features:</p>
+<ul class="simple">
+<li><p>High-cardinality object. Feature <code class="docutils literal notranslate"><span class="pre">desc</span></code> has a very specific context, since it contains the purpose of the loan.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_cardinal_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;emp_title&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> <span class="s1">&#39;addr_state&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">high_cardinal_features</span><span class="p">:</span>
+    <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">loan_df</span><span class="p">[[</span><span class="s1">&#39;emp_title&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> <span class="s1">&#39;addr_state&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>emp_title</th>
+      <th>title</th>
+      <th>desc</th>
+      <th>zip_code</th>
+      <th>addr_state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>33349</th>
+      <td>Team Industrial Services</td>
+      <td>Better Rate at Lending Club</td>
+      <td></td>
+      <td>802xx</td>
+      <td>CO</td>
+    </tr>
+    <tr>
+      <th>32818</th>
+      <td>Com Dev USA</td>
+      <td>Justin's Loan</td>
+      <td></td>
+      <td>926xx</td>
+      <td>CA</td>
+    </tr>
+    <tr>
+      <th>34019</th>
+      <td>Meadow ISD</td>
+      <td>Home Improvements</td>
+      <td></td>
+      <td>793xx</td>
+      <td>TX</td>
+    </tr>
+    <tr>
+      <th>32772</th>
+      <td>Department of Corections</td>
+      <td>mmlloan</td>
+      <td></td>
+      <td>028xx</td>
+      <td>RI</td>
+    </tr>
+    <tr>
+      <th>34054</th>
+      <td>Siam River</td>
+      <td>The Fresh Start</td>
+      <td></td>
+      <td>331xx</td>
+      <td>FL</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>Some of the features is time-related observations:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df</span><span class="p">[[</span><span class="s1">&#39;earliest_cr_line&#39;</span><span class="p">,</span> <span class="s1">&#39;last_credit_pull_d&#39;</span><span class="p">,</span> <span class="s1">&#39;last_pymnt_d&#39;</span><span class="p">,</span> <span class="s1">&#39;issue_d&#39;</span><span class="p">,</span> <span class="s1">&#39;next_pymnt_d&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>earliest_cr_line</th>
+      <th>last_credit_pull_d</th>
+      <th>last_pymnt_d</th>
+      <th>issue_d</th>
+      <th>next_pymnt_d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>254935</th>
+      <td>Apr-1992</td>
+      <td>Jan-2016</td>
+      <td>Jan-2016</td>
+      <td>Nov-2014</td>
+      <td>Feb-2016</td>
+    </tr>
+    <tr>
+      <th>37383</th>
+      <td>Oct-1989</td>
+      <td>Mar-2012</td>
+      <td>Mar-2012</td>
+      <td>Mar-2009</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50755</th>
+      <td>Sep-1997</td>
+      <td>Jan-2016</td>
+      <td>Jan-2016</td>
+      <td>Dec-2013</td>
+      <td>Feb-2016</td>
+    </tr>
+    <tr>
+      <th>641760</th>
+      <td>Apr-1988</td>
+      <td>Jan-2016</td>
+      <td>Dec-2015</td>
+      <td>Aug-2015</td>
+      <td>Feb-2016</td>
+    </tr>
+    <tr>
+      <th>413598</th>
+      <td>Jun-1996</td>
+      <td>Dec-2015</td>
+      <td>Jun-2015</td>
+      <td>Apr-2014</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datetime_features</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;earliest_cr_line&#39;</span><span class="p">,</span> <span class="s1">&#39;last_credit_pull_d&#39;</span><span class="p">,</span> <span class="s1">&#39;last_pymnt_d&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;issue_d&#39;</span><span class="p">,</span> <span class="s1">&#39;next_pymnt_d&#39;</span>
+    <span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;sub_grade&#39;</span><span class="p">,</span> <span class="s1">&#39;purpose&#39;</span><span class="p">,</span> <span class="s1">&#39;emp_length&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;home_ownership&#39;</span><span class="p">,</span> <span class="s1">&#39;verification_status_joint&#39;</span><span class="p">,</span> <span class="s1">&#39;verification_status&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;initial_list_status&#39;</span><span class="p">,</span> <span class="s1">&#39;pymnt_plan&#39;</span><span class="p">,</span> <span class="s1">&#39;application_type&#39;</span><span class="p">,</span> <span class="s1">&#39;term&#39;</span>
+    <span class="p">]</span>
+<span class="c1"># casting dtype</span>
+<span class="k">for</span> <span class="n">datetime_feature</span> <span class="ow">in</span> <span class="n">datetime_features</span><span class="p">:</span>
+    <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">datetime_feature</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">datetime_feature</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b-%Y&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">categorical_feature</span> <span class="ow">in</span> <span class="n">categorical_features</span><span class="p">:</span>
+    <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">categorical_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">categorical_feature</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Most of the time, categorical input is generally system-regulated and duplication is rarely to be found. Often dirty duplication is caused by capitalization so let’s check them out!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">category_columns</span> <span class="o">=</span> \
+    <span class="n">loan_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">category_columns</span><span class="p">:</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">loan_df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span>
+    <span class="n">value_counts</span> <span class="o">=</span> <span class="n">loan_df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">cat_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">value_counts</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;. Categories: &#39;</span><span class="p">,</span> <span class="n">cat_dict</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>term . Categories:  {&#39; 36 months&#39;: 621125, &#39; 60 months&#39;: 266254} 
+
+grade . Categories:  {&#39;A&#39;: 148202, &#39;B&#39;: 254535, &#39;C&#39;: 245860, &#39;D&#39;: 139542, &#39;E&#39;: 70705, &#39;F&#39;: 23046, &#39;G&#39;: 5489} 
+
+sub_grade . Categories:  {&#39;A1&#39;: 22913, &#39;A2&#39;: 22485, &#39;A3&#39;: 23457, &#39;A4&#39;: 34531, &#39;A5&#39;: 44816, &#39;B1&#39;: 44972, &#39;B2&#39;: 48781, &#39;B3&#39;: 56323, &#39;B4&#39;: 55626, &#39;B5&#39;: 48833, &#39;C1&#39;: 53387, &#39;C2&#39;: 52236, &#39;C3&#39;: 50161, &#39;C4&#39;: 48857, &#39;C5&#39;: 41219, &#39;D1&#39;: 36238, &#39;D2&#39;: 29803, &#39;D3&#39;: 26554, &#39;D4&#39;: 25558, &#39;D5&#39;: 21389, &#39;E1&#39;: 18268, &#39;E2&#39;: 17004, &#39;E3&#39;: 14134, &#39;E4&#39;: 11724, &#39;E5&#39;: 9575, &#39;F1&#39;: 7218, &#39;F2&#39;: 5392, &#39;F3&#39;: 4433, &#39;F4&#39;: 3409, &#39;F5&#39;: 2594, &#39;G1&#39;: 1871, &#39;G2&#39;: 1398, &#39;G3&#39;: 981, &#39;G4&#39;: 663, &#39;G5&#39;: 576} 
+
+emp_length . Categories:  {&#39;1 year&#39;: 57095, &#39;10+ years&#39;: 291569, &#39;2 years&#39;: 78870, &#39;3 years&#39;: 70026, &#39;4 years&#39;: 52529, &#39;5 years&#39;: 55704, &#39;6 years&#39;: 42950, &#39;7 years&#39;: 44594, &#39;8 years&#39;: 43955, &#39;9 years&#39;: 34657, &#39;&lt; 1 year&#39;: 70605} 
+
+home_ownership . Categories:  {&#39;ANY&#39;: 3, &#39;MORTGAGE&#39;: 443557, &#39;NONE&#39;: 50, &#39;OTHER&#39;: 182, &#39;OWN&#39;: 87470, &#39;RENT&#39;: 356117} 
+
+verification_status . Categories:  {&#39;Not Verified&#39;: 266750, &#39;Source Verified&#39;: 329558, &#39;Verified&#39;: 291071} 
+
+loan_status . Categories:  {&#39;Charged Off&#39;: 45248, &#39;Current&#39;: 601779, &#39;Default&#39;: 1219, &#39;Does not meet the credit policy. Status:Charged Off&#39;: 761, &#39;Does not meet the credit policy. Status:Fully Paid&#39;: 1988, &#39;Fully Paid&#39;: 207723, &#39;In Grace Period&#39;: 6253, &#39;Issued&#39;: 8460, &#39;Late (16-30 days)&#39;: 2357, &#39;Late (31-120 days)&#39;: 11591} 
+
+pymnt_plan . Categories:  {&#39;n&#39;: 887369, &#39;y&#39;: 10} 
+
+purpose . Categories:  {&#39;car&#39;: 8863, &#39;credit_card&#39;: 206182, &#39;debt_consolidation&#39;: 524215, &#39;educational&#39;: 423, &#39;home_improvement&#39;: 51829, &#39;house&#39;: 3707, &#39;major_purchase&#39;: 17277, &#39;medical&#39;: 8540, &#39;moving&#39;: 5414, &#39;other&#39;: 42894, &#39;renewable_energy&#39;: 575, &#39;small_business&#39;: 10377, &#39;vacation&#39;: 4736, &#39;wedding&#39;: 2347} 
+
+initial_list_status . Categories:  {&#39;f&#39;: 456848, &#39;w&#39;: 430531} 
+
+application_type . Categories:  {&#39;INDIVIDUAL&#39;: 886868, &#39;JOINT&#39;: 511} 
+
+verification_status_joint . Categories:  {&#39;Not Verified&#39;: 283, &#39;Source Verified&#39;: 61, &#39;Verified&#39;: 167} 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Feature <code class="docutils literal notranslate"><span class="pre">emp_length</span></code> is clearly an ordinal category but is not ordered correctly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">emp_length_order</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;&lt; 1 year&#39;</span><span class="p">,</span> <span class="s1">&#39;1 year&#39;</span><span class="p">,</span> <span class="s1">&#39;2 years&#39;</span><span class="p">,</span> <span class="s1">&#39;3 years&#39;</span><span class="p">,</span> <span class="s1">&#39;4 years&#39;</span><span class="p">,</span> <span class="s1">&#39;5 years&#39;</span><span class="p">,</span> <span class="s1">&#39;6 years&#39;</span><span class="p">,</span> <span class="s1">&#39;7 years&#39;</span><span class="p">,</span> <span class="s1">&#39;8 years&#39;</span><span class="p">,</span> <span class="s1">&#39;9 years&#39;</span><span class="p">,</span> <span class="s1">&#39;10+ years&#39;</span>
+    <span class="p">]</span>
+
+<span class="n">loan_df</span><span class="p">[</span><span class="s1">&#39;emp_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">loan_df</span><span class="p">[</span><span class="s1">&#39;emp_length&#39;</span><span class="p">],</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">emp_length_order</span><span class="p">,</span>
+    <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="target-feature-loan-status">
+<h3><strong>Target Feature: <code class="docutils literal notranslate"><span class="pre">loan_status</span></code></strong><a class="headerlink" href="#target-feature-loan-status" title="Permalink to this headline">#</a></h3>
+<p>Feature <code class="docutils literal notranslate"><span class="pre">loan_status</span></code> is the possible features as a target of supervised learning to predict whether particular loan is good or bad.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_status_count</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">loan_status</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">loan_status_percent</span> <span class="o">=</span> <span class="n">loan_df</span><span class="o">.</span><span class="n">loan_status</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">loan_status</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">loan_status_count</span><span class="p">,</span> <span class="n">loan_status_percent</span> <span class="o">*</span> <span class="mi">100</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">loan_status</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">]</span>
+<span class="n">loan_status</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Current</th>
+      <td>601779.00</td>
+      <td>67.82</td>
+    </tr>
+    <tr>
+      <th>Fully Paid</th>
+      <td>207723.00</td>
+      <td>23.41</td>
+    </tr>
+    <tr>
+      <th>Charged Off</th>
+      <td>45248.00</td>
+      <td>5.10</td>
+    </tr>
+    <tr>
+      <th>Late (31-120 days)</th>
+      <td>11591.00</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>Issued</th>
+      <td>8460.00</td>
+      <td>0.95</td>
+    </tr>
+    <tr>
+      <th>In Grace Period</th>
+      <td>6253.00</td>
+      <td>0.70</td>
+    </tr>
+    <tr>
+      <th>Late (16-30 days)</th>
+      <td>2357.00</td>
+      <td>0.27</td>
+    </tr>
+    <tr>
+      <th>Does not meet the credit policy. Status:Fully Paid</th>
+      <td>1988.00</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>Default</th>
+      <td>1219.00</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>Does not meet the credit policy. Status:Charged Off</th>
+      <td>761.00</td>
+      <td>0.09</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Based on above status, we can identify that:</p>
+<ul class="simple">
+<li><p>On-going loan has status: <code class="docutils literal notranslate"><span class="pre">Current</span></code>, <code class="docutils literal notranslate"><span class="pre">Late</span></code>, and <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">Grace</span> <span class="pre">Period</span></code></p></li>
+<li><p>Finished loan has status either <code class="docutils literal notranslate"><span class="pre">Fully</span> <span class="pre">Paid</span></code>, <code class="docutils literal notranslate"><span class="pre">Charged</span> <span class="pre">Off</span></code>, and <code class="docutils literal notranslate"><span class="pre">Default</span></code>.</p></li>
+</ul>
+<p>Most of the loan listed in our dataset is on-going loan (<code class="docutils literal notranslate"><span class="pre">loan_status</span></code> = <code class="docutils literal notranslate"><span class="pre">Current</span></code>). However, we can identify some loan that faces some difficulties in paying-off debt on the due date: <code class="docutils literal notranslate"><span class="pre">Late</span></code> and <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">Grace</span> <span class="pre">Period</span></code>.</p>
+<p>Let’s see an example of <code class="docutils literal notranslate"><span class="pre">loan_status</span></code> recorded as <code class="docutils literal notranslate"><span class="pre">Current</span></code> and each of their principal loan status!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df</span>\
+    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">loan_df</span><span class="o">.</span><span class="n">loan_status</span> <span class="o">==</span> <span class="s1">&#39;Current&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;issue_d&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;total_rec_prncp&#39;</span><span class="p">,</span> <span class="s1">&#39;out_prncp&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_status&#39;</span><span class="p">]]</span>\
+    <span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">portion_paid</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_rec_prncp</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">loan_amnt</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>issue_d</th>
+      <th>loan_amnt</th>
+      <th>total_rec_prncp</th>
+      <th>out_prncp</th>
+      <th>loan_status</th>
+      <th>portion_paid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>545109</th>
+      <td>2015-11-01</td>
+      <td>3000.00</td>
+      <td>138.77</td>
+      <td>2861.23</td>
+      <td>Current</td>
+      <td>4.63</td>
+    </tr>
+    <tr>
+      <th>840455</th>
+      <td>2015-02-01</td>
+      <td>13350.00</td>
+      <td>3037.76</td>
+      <td>10312.24</td>
+      <td>Current</td>
+      <td>22.75</td>
+    </tr>
+    <tr>
+      <th>239357</th>
+      <td>2014-11-01</td>
+      <td>4450.00</td>
+      <td>1420.94</td>
+      <td>3029.06</td>
+      <td>Current</td>
+      <td>31.93</td>
+    </tr>
+    <tr>
+      <th>718291</th>
+      <td>2015-06-01</td>
+      <td>20000.00</td>
+      <td>1786.80</td>
+      <td>18213.20</td>
+      <td>Current</td>
+      <td>8.93</td>
+    </tr>
+    <tr>
+      <th>625307</th>
+      <td>2015-09-01</td>
+      <td>16000.00</td>
+      <td>1413.72</td>
+      <td>14586.28</td>
+      <td>Current</td>
+      <td>8.84</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>It is clear that <code class="docutils literal notranslate"><span class="pre">total_rec_prncp</span></code> is the total principal that has been paid, and <code class="docutils literal notranslate"><span class="pre">out_prncp</span></code> is the remaining principal to be paid. How about <code class="docutils literal notranslate"><span class="pre">portion_paid</span></code> for <code class="docutils literal notranslate"><span class="pre">loan_status</span></code> = <code class="docutils literal notranslate"><span class="pre">Charged</span> <span class="pre">Off</span></code> or <code class="docutils literal notranslate"><span class="pre">Default</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df</span>\
+    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">loan_df</span><span class="o">.</span><span class="n">loan_status</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Charged Off&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">]),</span> <span class="p">[</span><span class="s1">&#39;issue_d&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;total_rec_prncp&#39;</span><span class="p">,</span> <span class="s1">&#39;out_prncp&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_status&#39;</span><span class="p">]]</span>\
+    <span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">portion_paid</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">total_rec_prncp</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">loan_amnt</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>issue_d</th>
+      <th>loan_amnt</th>
+      <th>total_rec_prncp</th>
+      <th>out_prncp</th>
+      <th>loan_status</th>
+      <th>portion_paid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>167265</th>
+      <td>2013-02-01</td>
+      <td>9475.00</td>
+      <td>2393.73</td>
+      <td>0.00</td>
+      <td>Charged Off</td>
+      <td>25.26</td>
+    </tr>
+    <tr>
+      <th>222469</th>
+      <td>2012-04-01</td>
+      <td>12000.00</td>
+      <td>9362.90</td>
+      <td>0.00</td>
+      <td>Charged Off</td>
+      <td>78.02</td>
+    </tr>
+    <tr>
+      <th>396730</th>
+      <td>2014-05-01</td>
+      <td>20400.00</td>
+      <td>1597.79</td>
+      <td>0.00</td>
+      <td>Charged Off</td>
+      <td>7.83</td>
+    </tr>
+    <tr>
+      <th>330882</th>
+      <td>2014-08-01</td>
+      <td>5000.00</td>
+      <td>199.95</td>
+      <td>0.00</td>
+      <td>Charged Off</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <th>253954</th>
+      <td>2014-11-01</td>
+      <td>12000.00</td>
+      <td>1236.99</td>
+      <td>10763.01</td>
+      <td>Default</td>
+      <td>10.31</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>More in-depth analysis will be encouraged in the next chapter: <strong>Exploration of Lending Club Dataset</strong>.</p>
+</section>
+</section>
+<section id="custom-transformer-for-dataset-preprocessing">
+<h2>4. Custom Transformer for Dataset Preprocessing<a class="headerlink" href="#custom-transformer-for-dataset-preprocessing" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+
+<span class="k">class</span> <span class="nc">LoanDataPreprocess</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">float_features_</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;member_id&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;funded_amnt&#39;</span><span class="p">,</span> <span class="s1">&#39;funded_amnt_inv&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;int_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;installment&#39;</span><span class="p">,</span> <span class="s1">&#39;annual_inc&#39;</span><span class="p">,</span> <span class="s1">&#39;dti&#39;</span><span class="p">,</span> <span class="s1">&#39;delinq_2yrs&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;inq_last_6mths&#39;</span><span class="p">,</span> <span class="s1">&#39;mths_since_last_delinq&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mths_since_last_record&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;pub_rec&#39;</span><span class="p">,</span> <span class="s1">&#39;revol_bal&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;revol_util&#39;</span><span class="p">,</span> <span class="s1">&#39;total_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;out_prncp&#39;</span><span class="p">,</span> <span class="s1">&#39;out_prncp_inv&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;total_pymnt&#39;</span><span class="p">,</span> <span class="s1">&#39;total_pymnt_inv&#39;</span><span class="p">,</span> <span class="s1">&#39;total_rec_prncp&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;total_rec_int&#39;</span><span class="p">,</span> <span class="s1">&#39;total_rec_late_fee&#39;</span><span class="p">,</span> <span class="s1">&#39;recoveries&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;collection_recovery_fee&#39;</span><span class="p">,</span> <span class="s1">&#39;last_pymnt_amnt&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;collections_12_mths_ex_med&#39;</span><span class="p">,</span> <span class="s1">&#39;mths_since_last_major_derog&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;policy_code&#39;</span><span class="p">,</span> <span class="s1">&#39;annual_inc_joint&#39;</span><span class="p">,</span> <span class="s1">&#39;dti_joint&#39;</span><span class="p">,</span> <span class="s1">&#39;acc_now_delinq&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tot_coll_amt&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_cur_bal&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc_6m&#39;</span><span class="p">,</span> <span class="s1">&#39;open_il_12m&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;open_il_24m&#39;</span><span class="p">,</span> <span class="s1">&#39;mths_since_rcnt_il&#39;</span><span class="p">,</span> <span class="s1">&#39;total_bal_il&#39;</span><span class="p">,</span> <span class="s1">&#39;il_util&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;open_rv_12m&#39;</span><span class="p">,</span> <span class="s1">&#39;open_rv_24m&#39;</span><span class="p">,</span> <span class="s1">&#39;max_bal_bc&#39;</span><span class="p">,</span> <span class="s1">&#39;all_util&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;total_rev_hi_lim&#39;</span><span class="p">,</span> <span class="s1">&#39;inq_fi&#39;</span><span class="p">,</span> <span class="s1">&#39;total_cu_tl&#39;</span><span class="p">,</span> <span class="s1">&#39;inq_last_12m&#39;</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_features_</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;member_id&#39;</span><span class="p">,</span> <span class="s1">&#39;delinq_2yrs&#39;</span><span class="p">,</span> <span class="s1">&#39;open_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;pub_rec&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;total_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;collections_12_mths_ex_med&#39;</span><span class="p">,</span> <span class="s1">&#39;policy_code&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;acc_now_delinq&#39;</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datetime_features_</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;issue_d&#39;</span><span class="p">,</span> <span class="s1">&#39;earliest_cr_line&#39;</span><span class="p">,</span> <span class="s1">&#39;last_pymnt_d&#39;</span><span class="p">,</span> <span class="s1">&#39;next_pymnt_d&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;last_credit_pull_d&#39;</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string_features_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;emp_title&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> <span class="s1">&#39;addr_state&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">categorical_features_</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;sub_grade&#39;</span><span class="p">,</span> <span class="s1">&#39;emp_length&#39;</span><span class="p">,</span> <span class="s1">&#39;home_ownership&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;verification_status&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="s1">&#39;pymnt_plan&#39;</span><span class="p">,</span> <span class="s1">&#39;purpose&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;initial_list_status&#39;</span><span class="p">,</span> <span class="s1">&#39;application_type&#39;</span><span class="p">,</span> <span class="s1">&#39;verification_status_joint&#39;</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emp_length_order_</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;&lt; 1 year&#39;</span><span class="p">,</span> <span class="s1">&#39;1 year&#39;</span><span class="p">,</span> <span class="s1">&#39;2 years&#39;</span><span class="p">,</span> <span class="s1">&#39;3 years&#39;</span><span class="p">,</span> <span class="s1">&#39;4 years&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;5 years&#39;</span><span class="p">,</span> <span class="s1">&#39;6 years&#39;</span><span class="p">,</span> <span class="s1">&#39;7 years&#39;</span><span class="p">,</span> <span class="s1">&#39;8 years&#39;</span><span class="p">,</span> <span class="s1">&#39;9 years&#39;</span><span class="p">,</span> <span class="s1">&#39;10+ years&#39;</span>
+            <span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span>
+        
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># numerical datatype casting</span>
+        <span class="k">for</span> <span class="n">int_feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_features_</span> <span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">int_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">int_feature</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">float_feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_features_</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">float_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">float_feature</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        <span class="c1"># strip string</span>
+        <span class="k">for</span> <span class="n">string_feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_features_</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">string_feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">string_feature</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># datetime datatype casting</span>
+        <span class="k">for</span> <span class="n">datetime_feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_features_</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">datetime_feature</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">datetime_feature</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%b-%Y&#39;</span><span class="p">)</span>
+        <span class="c1"># categorical datatype casting</span>
+        <span class="k">for</span> <span class="n">categorical_feature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorical_features_</span><span class="p">:</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">categorical_feature</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">categorical_feature</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        <span class="c1"># ordinal category order</span>
+        <span class="n">X</span><span class="p">[</span><span class="s1">&#39;emp_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+            <span class="n">values</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;emp_length&#39;</span><span class="p">],</span>
+            <span class="n">categories</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">emp_length_order_</span><span class="p">,</span>
+            <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s try the transformer for our hold-out dataset, the <code class="docutils literal notranslate"><span class="pre">Loan</span> <span class="pre">Data</span> <span class="pre">2016-2017</span></code>, which we will utilize as the validation set for our machine learning model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loan_df_heldout</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s1">&#39;dataset/lc_2016-2017.csv&#39;</span><span class="p">,</span> 
+    <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="s1">&#39;verification_status_joint&#39;</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">}</span>
+    <span class="p">)</span>
+<span class="n">loan_data_preprocess</span> <span class="o">=</span> <span class="n">LoanDataPreprocess</span><span class="p">()</span>
+<span class="n">loan_data_preprocess</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">loan_df</span><span class="p">)</span>
+<span class="n">loan_df_heldout</span> <span class="o">=</span> <span class="n">loan_data_preprocess</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">loan_df_heldout</span><span class="p">)</span>
+
+<span class="n">loan_df_heldout</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id                                    float64
+member_id                             float64
+loan_amnt                             float64
+funded_amnt                           float64
+funded_amnt_inv                       float64
+term                                 category
+int_rate                              float64
+installment                           float64
+grade                                category
+sub_grade                            category
+emp_title                              object
+emp_length                           category
+home_ownership                       category
+annual_inc                            float64
+verification_status                  category
+issue_d                        datetime64[ns]
+loan_status                          category
+pymnt_plan                           category
+desc                                   object
+purpose                              category
+title                                  object
+zip_code                               object
+addr_state                             object
+dti                                   float64
+delinq_2yrs                           float64
+earliest_cr_line               datetime64[ns]
+inq_last_6mths                        float64
+mths_since_last_delinq                float64
+mths_since_last_record                float64
+open_acc                              float64
+pub_rec                               float64
+revol_bal                             float64
+revol_util                            float64
+total_acc                             float64
+initial_list_status                  category
+out_prncp                             float64
+out_prncp_inv                         float64
+total_pymnt                           float64
+total_pymnt_inv                       float64
+total_rec_prncp                       float64
+total_rec_int                         float64
+total_rec_late_fee                    float64
+recoveries                            float64
+collection_recovery_fee               float64
+last_pymnt_d                   datetime64[ns]
+last_pymnt_amnt                       float64
+next_pymnt_d                   datetime64[ns]
+last_credit_pull_d             datetime64[ns]
+collections_12_mths_ex_med            float64
+mths_since_last_major_derog           float64
+policy_code                           float64
+application_type                     category
+annual_inc_joint                      float64
+dti_joint                             float64
+verification_status_joint            category
+acc_now_delinq                        float64
+tot_coll_amt                          float64
+tot_cur_bal                           float64
+open_acc_6m                           float64
+open_il_12m                           float64
+open_il_24m                           float64
+mths_since_rcnt_il                    float64
+total_bal_il                          float64
+il_util                               float64
+open_rv_12m                           float64
+open_rv_24m                           float64
+max_bal_bc                            float64
+all_util                              float64
+total_rev_hi_lim                      float64
+inq_fi                                float64
+total_cu_tl                           float64
+inq_last_12m                          float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-s-next">
+<h2>5. What’s Next<a class="headerlink" href="#what-s-next" title="Permalink to this headline">#</a></h2>
+<p>The interesting part will come on the next two chapters. We will explore the dataset in a hope to find some interesting insight and later we will develop a classification model to demonstrate the usefulness of machine learning model to deliver informed decision.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Implementing Machine Learning Model to Predict and Select Loan</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="2_Data_exploration.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exploratory Analysis of LendingClub Loan Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nafis Barizki<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

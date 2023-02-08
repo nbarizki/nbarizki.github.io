@@ -1,0 +1,1651 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Web Scraping &#8212; Linear Regression of Jabodetabek House Price and Implementation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Regression of Jabodetabek House Price and Implementation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    Linear Regression Model of Jabodetabek House Price and its Implementation
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1%20-%20Data%20Pre-Processing.html">
+   <strong>
+    Data Pre-Processing
+   </strong>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2%20-%20Data%20Exploration%20and%20Analysis.html">
+   <strong>
+    Data Exploration and Analysis of House Price Offers
+   </strong>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3%20-%20Linear%20Modeling%20of%20House%20Price.html">
+   <strong>
+    Linear Regression Model of House Price in Jabodetabek Area and its Implementation
+   </strong>
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nbarizki/jabodetabekhousepricing/main?urlpath=tree/0 - Web Scraping.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nbarizki/jabodetabekhousepricing"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nbarizki/jabodetabekhousepricing/issues/new?title=Issue%20on%20page%20%2F0 - Web Scraping.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/0 - Web Scraping.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   2. Requirements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#web-scraping-flow">
+   3. Web Scraping Flow
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-main-entry-list">
+     3.1. Accessing
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       main
+      </span>
+      <span class="pre">
+       entry
+      </span>
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-specific-house-listing">
+     3.2. Accessing specific
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       House
+      </span>
+      <span class="pre">
+       Listing
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#listing-header">
+       <strong>
+        Listing Header
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#property-specifications">
+       <strong>
+        Property Specifications
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#provided-facilities">
+       <strong>
+        Provided Facilities
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-scraped-data-from-a-single-listing-page">
+     3.3. Combining Scraped Data from a Single Listing Page
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#completing-web-scraping-framework">
+   4. Completing Web Scraping Framework
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#obtaining-estimated-coordinate-of-address">
+   5. Obtaining Estimated Coordinate of Address
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#appendix-web-scraping-workspace">
+   Appendix - Web Scraping Workspace
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Web Scraping</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   2. Requirements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#web-scraping-flow">
+   3. Web Scraping Flow
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-main-entry-list">
+     3.1. Accessing
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       main
+      </span>
+      <span class="pre">
+       entry
+      </span>
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-specific-house-listing">
+     3.2. Accessing specific
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       House
+      </span>
+      <span class="pre">
+       Listing
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#listing-header">
+       <strong>
+        Listing Header
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#property-specifications">
+       <strong>
+        Property Specifications
+       </strong>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#provided-facilities">
+       <strong>
+        Provided Facilities
+       </strong>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-scraped-data-from-a-single-listing-page">
+     3.3. Combining Scraped Data from a Single Listing Page
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#completing-web-scraping-framework">
+   4. Completing Web Scraping Framework
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#obtaining-estimated-coordinate-of-address">
+   5. Obtaining Estimated Coordinate of Address
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#appendix-web-scraping-workspace">
+   Appendix - Web Scraping Workspace
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="web-scraping">
+<h1><strong>Web Scraping</strong><a class="headerlink" href="#web-scraping" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In this notebook, I will demonstrate the ability of python <code class="docutils literal notranslate"><span class="pre">Selenium</span></code> and <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code> to scrap <code class="docutils literal notranslate"><span class="pre">Jabodetabek</span> <span class="pre">House</span> <span class="pre">Pricing</span></code> data from a third party website, utilizing other supporting package such as <code class="docutils literal notranslate"><span class="pre">logging</span></code> and <code class="docutils literal notranslate"><span class="pre">datetime</span></code> to improve insight about our web scraping framework.</p>
+<p>This website provide listing of offered price of used and new houses to be sold. Using this data, we can gain insight about <em>how home-owner in Jabodetabek Area values their house price and how each parameter associates with the offered price, i.e. how significant each of the property’s aspect that majority of owners believe will drive their house price worthiness</em>.</p>
+<p>This notebook focuses entirely on how to web scrap, from identifying the website structure to developing a single <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">object</span></code> to scrap the website, embracing simple <code class="docutils literal notranslate"><span class="pre">object-oriented</span> <span class="pre">programming</span></code> attributes and methods. Analysis of retrieved data will be explained in other notebook associated in this repository.</p>
+<p>Note that this web scraping program only works with this specific house pricing website.</p>
+</section>
+<section id="requirements">
+<h2>2. Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
+<p>In order to access website using <code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code>, one must verify that:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Chrome</span></code> (denotes the <em>fully installed version of Chrome Browser</em>) must be installed in the system. Identify the <strong>installed version</strong> of <em>Chrome</em> first.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code> must be provided, which its <strong>version</strong> shall match the <strong>installed version</strong> of <code class="docutils literal notranslate"><span class="pre">Chrome</span></code>. Further explanation on this can be found in <a class="reference external" href="https://chromedriver.chromium.org/downloads/version-selection">https://chromedriver.chromium.org/downloads/version-selection</a>. Download the matched version of <code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code>, the file name will be <code class="docutils literal notranslate"><span class="pre">chromedriver.exe</span></code>.</p></li>
+<li><p>Make sure that <code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code> can be detected while utilizing <code class="docutils literal notranslate"><span class="pre">Selenium</span></code> from python. I choose to add the <code class="docutils literal notranslate"><span class="pre">chromedriver.exe</span></code> executable file path to ChromeDriver when instantiating <code class="docutils literal notranslate"><span class="pre">webdriver.Chrome</span></code>.</p></li>
+</ol>
+<p><img alt="chromedriver" src="_images/1_chromedriver_version.png" />
+<em><center> Matching <code class="docutils literal notranslate"><span class="pre">Chrome</span></code> version with <code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code> version</center></em></p>
+</section>
+<section id="web-scraping-flow">
+<h2>3. Web Scraping Flow<a class="headerlink" href="#web-scraping-flow" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.desired_capabilities</span> <span class="kn">import</span> <span class="n">DesiredCapabilities</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">ElementClickInterceptedException</span><span class="p">,</span> <span class="n">NoSuchElementException</span>  
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/residensial/?place[]=dki-jakarta&amp;place[]=bogor&amp;place[]=depok&amp;place[]=bekasi,bekasi&amp;placeId[]=8de06376-49a3-4369-a01b-00085aefe766&amp;placeId[]=dfd71096-eda2-4776-b3ca-542d8c5fb12b&amp;placeId[]=a4a34395-ebe5-4930-9456-df327a9f484a&amp;placeId[]=66899e8e-4896-467b-8e54-ab7c533bd616#qid~a0314d88-70ff-4b6c-b4bd-45f4c9f41d04&#39;</span>
+<span class="n">chrome_options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">ChromeOptions</span><span class="p">()</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-infobars&#39;</span><span class="p">)</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;start-maximized&#39;</span><span class="p">)</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-extensions&#39;</span><span class="p">)</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-notifications&#39;</span><span class="p">)</span>
+<span class="n">prefs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;profile.default_content_setting_values.notifications&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">chrome_options</span><span class="o">.</span><span class="n">add_experimental_option</span><span class="p">(</span><span class="s1">&#39;prefs&#39;</span><span class="p">,</span> <span class="n">prefs</span><span class="p">)</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span>
+    <span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">chromedriver.exe&#39;</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span>
+    <span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="accessing-main-entry-list">
+<h3>3.1. Accessing <code class="docutils literal notranslate"><span class="pre">main</span> <span class="pre">entry</span> <span class="pre">list</span></code><a class="headerlink" href="#accessing-main-entry-list" title="Permalink to this headline">#</a></h3>
+<p>All of the house listings in main page is stored in <code class="docutils literal notranslate"><span class="pre">listing-container</span></code> as below snapshot. We are going to retrieve all of the listings in a single page by accessing this <code class="docutils literal notranslate"><span class="pre">Class</span> <span class="pre">Name</span></code>.</p>
+<p><img alt="main_content" src="_images/2_Main_content.png" /></p>
+<p><img alt="listing_card" src="_images/3_Listing_card.png" /></p>
+<p><em><center> Webpage structure of house listing </center></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">main_listing_class</span> <span class="o">=</span> <span class="s1">&#39;ui-organism-intersection__element.intersection-card-container&#39;</span>
+<span class="n">main_listings</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="n">main_listing_class</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">main_listings</span><span class="p">))</span>
+<span class="n">main_listings</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;27bc6ea0e55c8fecd59320e08cde192d&quot;, element=&quot;d3094ef4-6cc7-4447-9f9a-ad8868efc41f&quot;)&gt;,
+ &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;27bc6ea0e55c8fecd59320e08cde192d&quot;, element=&quot;b3c19c0a-e747-43ea-853c-8a11e806b8d2&quot;)&gt;,
+ &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;27bc6ea0e55c8fecd59320e08cde192d&quot;, element=&quot;854a09a0-1014-49a1-8535-318d2a670558&quot;)&gt;,
+ &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;27bc6ea0e55c8fecd59320e08cde192d&quot;, element=&quot;aea04bb6-799c-4e75-9dd4-315958cbf218&quot;)&gt;,
+ &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;27bc6ea0e55c8fecd59320e08cde192d&quot;, element=&quot;0fb9609e-e003-43bd-8371-59949fe2f638&quot;)&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>House listing is located in <code class="docutils literal notranslate"><span class="pre">Listing</span> <span class="pre">Card</span></code>, the children of <code class="docutils literal notranslate"><span class="pre">main_listing</span></code> element above. We will access this to retrieve Navigation link to its detailed listing information.
+We are going to try to a house list as below codes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example of using 1 listing</span>
+<span class="n">listing_card_html</span> <span class="o">=</span> <span class="n">main_listings</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;outerHTML&#39;</span><span class="p">)</span>
+<span class="n">soup_listing</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">listing_card_html</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+
+<span class="c1"># listing card properties</span>
+<span class="n">listing_class</span> <span class="o">=</span> <span class="s1">&#39;ui-organisms-card-r123-featured__middle-section__title&#39;</span>
+<span class="n">nav_link</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com&#39;</span> <span class="o">+</span> <span class="n">soup_listing</span><span class="o">.</span><span class="n">select</span><span class="p">((</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">listing_class</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+<span class="n">nav_link</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;https://www.rumah123.com/properti/jakarta-selatan/hos11355709/&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using above lines, we can collect all of the <code class="docutils literal notranslate"><span class="pre">listing_id</span></code> and <code class="docutils literal notranslate"><span class="pre">nav_link</span></code> from the main entry list, which contain more than one listing. Note that each listing has been isolated as a list of <code class="docutils literal notranslate"><span class="pre">WebElement</span></code> object so that we won’t retrieve overlapped records.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nav_links</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">listing</span> <span class="ow">in</span> <span class="n">main_listings</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span> 
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">listing</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;outerHTML&#39;</span><span class="p">))</span>
+        <span class="n">listing_class</span> <span class="o">=</span> <span class="s1">&#39;ui-organisms-card-r123-featured__middle-section__title&#39;</span>
+        <span class="n">nav_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;https://www.rumah123.com&#39;</span> <span class="o">+</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">((</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">listing_class</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="n">nav_links</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;https://www.rumah123.com/properti/jakarta-selatan/hos10107882/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-barat/hos10985513/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos11355709/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos10697193/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos8770206/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos7010634/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos10941017/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-timur/hos8602350/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos10059115/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos10849554/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-barat/aps2727387/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos11327520/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-barat/aps2726460/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-utara/hos2202843/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/hos11170878/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-utara/hos11344691/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-utara/hos11351396/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-barat/hos11352875/&#39;,
+ &#39;https://www.rumah123.com/properti/jakarta-selatan/aps2697669/&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our scraping framework will loop-accessing all of the stored navigation link of house listing.</p>
+</section>
+<section id="accessing-specific-house-listing">
+<h3>3.2. Accessing specific <code class="docutils literal notranslate"><span class="pre">House</span> <span class="pre">Listing</span></code><a class="headerlink" href="#accessing-specific-house-listing" title="Permalink to this headline">#</a></h3>
+<p>Having information of each listing navigation link, we now begin to scrap information of each listing by repetitively accessing each of the link using our <code class="docutils literal notranslate"><span class="pre">Chrome</span> <span class="pre">Webdriver</span></code>.</p>
+<p>We have to identify each particular object that we want to scrap.</p>
+<section id="listing-header">
+<h4><strong>Listing Header</strong><a class="headerlink" href="#listing-header" title="Permalink to this headline">#</a></h4>
+<p><img alt="header" src="_images/4_Header.png" /></p>
+<p><em><center> Listing Header </center></em></p>
+<p>Information:</p>
+<ul class="simple">
+<li><p>Price</p></li>
+<li><p>Title</p></li>
+<li><p>Address</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/properti/jakarta-timur/hos10008254/&#39;</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">header_class_name</span> <span class="o">=</span> <span class="s1">&#39;ui-container.ui-property-page__main-container&#39;</span>
+<span class="n">header_element</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">header_class_name</span><span class="p">)</span>
+<span class="n">soup_header</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">header_element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="c1"># scraping</span>
+<span class="k">try</span><span class="p">:</span> 
+    <span class="n">currency</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">price_unit</span> <span class="o">=</span> \
+        <span class="n">soup_header</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__price&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">soup_header</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__header-container-title&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">soup_header</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__header-container-address&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="c1"># compile header</span>
+<span class="n">site_url</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">URL</span><span class="p">}</span>
+<span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+    <span class="n">price_currency</span> <span class="o">=</span> <span class="n">currency</span><span class="p">,</span>
+    <span class="n">price_value</span> <span class="o">=</span> <span class="n">price</span><span class="p">,</span>
+    <span class="n">price_unit</span> <span class="o">=</span> <span class="n">price_unit</span><span class="p">,</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+<span class="p">)</span>
+
+<span class="n">header</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;title&#39;: &#39;Rumah Murah di Jalan Cipinang Baru Raya Jakarta Timur&#39;,
+ &#39;price_currency&#39;: &#39;Rp&#39;,
+ &#39;price_value&#39;: &#39;2&#39;,
+ &#39;price_unit&#39;: &#39;Miliar&#39;,
+ &#39;address&#39;: &#39;Rawamangun, Jakarta Timur&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="property-specifications">
+<h4><strong>Property Specifications</strong><a class="headerlink" href="#property-specifications" title="Permalink to this headline">#</a></h4>
+<p>Detailed list of property specification will popped-up after we click <em><code class="docutils literal notranslate"><span class="pre">menampilkan</span> <span class="pre">lebih</span> <span class="pre">banyak</span></code></em>, as shown in below snapshot. We will retrieve the element after we <em>clicking</em> using the <code class="docutils literal notranslate"><span class="pre">WebDriver</span></code>.</p>
+<p><img alt="popup" src="_images/5_Listing_Popup_Button.png" /></p>
+<p><em><center> Listing specification </center></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># commanding clicking</span>
+<span class="n">details_popup_class_name</span> <span class="o">=</span> <span class="s1">&#39;relative.ui-content-half__selector&#39;</span>
+<span class="n">click_element</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">details_popup_class_name</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s1">&#39;arguments[0].click();&#39;</span><span class="p">,</span> <span class="n">click_element</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">details_element</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ui-listing-specification__table&#39;</span><span class="p">)</span>
+<span class="n">details_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">details_element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="c1"># compile available details</span>
+<span class="n">details</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">details_soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.ui-listing-specification__table--row&#39;</span><span class="p">):</span>
+    <span class="n">label</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)]</span>
+    <span class="n">details</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">label</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+
+<span class="n">details</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;K. Tidur&#39;: &#39;3&#39;,
+ &#39;K. Mandi&#39;: &#39;3&#39;,
+ &#39;L. Tanah&#39;: &#39;56 m²&#39;,
+ &#39;L. Bangunan&#39;: &#39;87 m²&#39;,
+ &#39;Carport&#39;: &#39;1&#39;,
+ &#39;Tipe Properti&#39;: &#39;Rumah&#39;,
+ &#39;Sertifikat&#39;: &#39;SHM - Sertifikat Hak Milik&#39;,
+ &#39;Daya Listrik&#39;: &#39;2200 mAh&#39;,
+ &#39;Jumlah Lantai&#39;: &#39;2&#39;,
+ &#39;Tahun dibangun&#39;: &#39;2022&#39;,
+ &#39;Kondisi Properti&#39;: &#39;Baru&#39;,
+ &#39;Kondisi Perabotan&#39;: &#39;Unfurnished&#39;,
+ &#39;ID Iklan&#39;: &#39;hos10008254&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>If the page doesn’t have that clickable element (i.e. lister only provided minimum information of property specification), we just scrap from what is just available in the page, using below codes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">details_element</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ui-listing-specification__badge-wrapper&#39;</span><span class="p">)</span>
+<span class="n">details_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">details_element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="c1"># compile available details</span>
+<span class="n">details</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">details_soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.ui-atomic-badges__children.relative&#39;</span><span class="p">):</span>
+    <span class="n">label</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)]</span>
+    <span class="n">details</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">label</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+
+<span class="n">details</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;K. Tidur&#39;: &#39;3&#39;,
+ &#39;K. Mandi&#39;: &#39;3&#39;,
+ &#39;L. Tanah&#39;: &#39;56 m²&#39;,
+ &#39;L. Bangunan&#39;: &#39;87 m²&#39;,
+ &#39;Carport&#39;: &#39;1&#39;,
+ &#39;Tipe Properti&#39;: &#39;Rumah&#39;,
+ &#39;Sertifikat&#39;: &#39;SHM - Sertifikat Hak Milik&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="provided-facilities">
+<h4><strong>Provided Facilities</strong><a class="headerlink" href="#provided-facilities" title="Permalink to this headline">#</a></h4>
+<p><img alt="facilities" src="_images/6_Facilities.png" /></p>
+<p><em><center> Provided facilities </center></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facilities_element</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ui-facilities-portal__item-wrapper&#39;</span><span class="p">)</span>
+<span class="n">facilities_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">facilities_element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">facilities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;facilities&#39;</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">({</span><span class="n">_</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">facilities_soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.ui-facilities-portal__item&#39;</span><span class="p">)})</span>
+<span class="p">}</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="n">facilities</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;facilities&#39;: &#39;Keamanan, Keamanan 24 jam, CCTV&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="combining-scraped-data-from-a-single-listing-page">
+<h3>3.3. Combining Scraped Data from a Single Listing Page<a class="headerlink" href="#combining-scraped-data-from-a-single-listing-page" title="Permalink to this headline">#</a></h3>
+<p>From section <code class="docutils literal notranslate"><span class="pre">2.2</span> <span class="pre">Accessing</span> <span class="pre">specific</span> <span class="pre">House</span> <span class="pre">Listing</span></code>, we have compiled several collections of scraped data as below:</p>
+<ol class="simple">
+<li><p>Records of <strong>Listing URL</strong>, stored in <code class="docutils literal notranslate"><span class="pre">url</span></code> variable</p></li>
+<li><p>Records of <strong>Listing Header</strong>, stored in <code class="docutils literal notranslate"><span class="pre">header</span></code> variable</p></li>
+<li><p>Records of <strong>Property Details</strong>, stored in <code class="docutils literal notranslate"><span class="pre">details</span></code> variable</p></li>
+<li><p>Records of <strong>Provided Facilities</strong>, stored in <code class="docutils literal notranslate"><span class="pre">facilities</span></code> variable</p></li>
+</ol>
+<p>Thus, a single observation of house listing will be presented as a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> of records, as explained in code below. We specifically use the dict <code class="docutils literal notranslate"><span class="pre">update</span></code> method to merge the records and ignoring the duplicated records (if any).</p>
+<p>Collection of observations will be stored as a <strong>list of dictionaries</strong>, which then can be processed using <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> constructor. More of this will be explained in the next chapter.</p>
+</section>
+</section>
+<section id="completing-web-scraping-framework">
+<h2>4. Completing Web Scraping Framework<a class="headerlink" href="#completing-web-scraping-framework" title="Permalink to this headline">#</a></h2>
+<p>We now begin to complete our framework by creating a program to iterate over listing pages.</p>
+<p>The concepts of my <code class="docutils literal notranslate"><span class="pre">web</span> <span class="pre">scraping</span> <span class="pre">object</span></code> are:</p>
+<ol class="simple">
+<li><p>First thing to do is to collect the navigation links to each listing, which we obtain from <code class="docutils literal notranslate"><span class="pre">main</span> <span class="pre">entry</span> <span class="pre">page</span></code>, so we will create a non-public attribute to store these links and reset the attribute after all of the stored links have been accessed (a chance to preserve memory). Proceed to store new links for each main entry page.</p></li>
+<li><p>Scraping the data will be isolated by a single method, which stored in a <code class="docutils literal notranslate"><span class="pre">WebElement</span></code>. Each records that scraped will be passed to a <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">attribute</span></code>. This method will be repetitively executed as the navigation links is passed.</p></li>
+<li><p>Provide a non-confusing <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">method</span></code> to begin the scrap, using <code class="docutils literal notranslate"><span class="pre">starting</span> <span class="pre">url</span></code> and <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">range</span></code>. The convenient exception handling and logging will be controlled in this method as the iteration of scraping methods (1 and 2) is continuously running to maintain the web scraping flow.</p></li>
+<li><p>Caching the scraped data after finished accessing a single main entry page.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.desired_capabilities</span> <span class="kn">import</span> <span class="n">DesiredCapabilities</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">ElementClickInterceptedException</span><span class="p">,</span> <span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">TimeoutException</span><span class="p">,</span> <span class="n">StaleElementReferenceException</span>         
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">class</span> <span class="nc">WebScraper</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Scrap the website using WebsScraper.scrap() method. Start URL should has &#39;?&#39; (means starts the query)&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_URL</span> <span class="o">=</span> <span class="n">start_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nav_links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_observations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">ChromeOptions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-infobars&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;start-maximized&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-extensions&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-notifications&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;profile.default_content_setting_values.notifications&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_experimental_option</span><span class="p">(</span><span class="s1">&#39;prefs&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span>
+            <span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">chromedriver.exe&#39;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span>
+            <span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">_main_page_accessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collects navigation links from a single entry page&quot;&quot;&quot;</span>
+        <span class="n">url_</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scrapping </span><span class="si">{</span><span class="n">url_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  
+        <span class="c1"># Starts page access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_</span><span class="p">)</span>
+        <span class="c1"># Post access</span>
+        <span class="n">main_listing_class_</span> <span class="o">=</span> <span class="s1">&#39;ui-organism-intersection__element.intersection-card-container&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+                <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="n">main_listing_class_</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">main_listings_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="n">main_listing_class_</span><span class="p">)</span>
+        <span class="n">links_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">listing_</span> <span class="ow">in</span> <span class="n">main_listings_</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="n">soup_</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">listing_</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+                <span class="n">listing_class_</span> <span class="o">=</span> <span class="s1">&#39;ui-organisms-card-r123-featured__middle-section__title&#39;</span>
+                <span class="n">links_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="s1">&#39;https://www.rumah123.com&#39;</span> <span class="o">+</span> <span class="n">soup_</span><span class="o">.</span><span class="n">select</span><span class="p">((</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">listing_class_</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to get (1) listing navigation link from </span><span class="si">{</span><span class="n">url_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nav_links</span> <span class="o">=</span> <span class="n">links_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_listing_scraper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Scraps from a single listing. Observations is stored as a dictionary&quot;&quot;&quot;</span>
+        <span class="n">url_</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="n">scrap_data_</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Starts page access</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_</span><span class="p">)</span>
+        <span class="c1"># Post access:</span>
+        <span class="c1"># 1. Scraping Header</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+                <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;ui-listing-specification__badge-wrapper&#39;</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">header_class_name_</span> <span class="o">=</span> <span class="s1">&#39;ui-container.ui-property-page__main-container&#39;</span>
+            <span class="n">header_element_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">header_class_name_</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">soup_header_</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">header_element_</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+            <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url_</span>
+            <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">],</span> <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">],</span> <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;price_unit_scale&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">soup_header_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__price&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">soup_header_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__header-container-title&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">soup_header_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.r123-listing-summary__header-container-address&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Failed to retrive property header for url (</span><span class="si">{</span><span class="n">url_</span><span class="si">}</span><span class="s1">),&#39;</span>
+                <span class="s1">&#39; may retrieve incomplete information&#39;</span><span class="p">)</span>
+        <span class="c1"># 2. Scraping Provided Facilities</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">facilities_class_name_</span> <span class="o">=</span> <span class="s1">&#39;ui-facilities-portal__item-wrapper&#39;</span>
+            <span class="n">facilities_element_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">facilities_class_name_</span><span class="p">)</span>
+            <span class="n">facilities_soup_</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">facilities_element_</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>        
+            <span class="n">scrap_data_</span><span class="p">[</span><span class="s1">&#39;facilities&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">({</span><span class="n">_</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">facilities_soup_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;.ui-facilities-portal__item&#39;</span><span class="p">)})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_observations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scrap_data_</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NoSuchElementException</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="c1"># 3. Scraping Property Specification</span>
+        <span class="n">details_popup_class_name_</span> <span class="o">=</span> <span class="s1">&#39;relative.ui-content-half__selector&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1">#self._browser.find_element_by_class_name(details_popup_class_name_).click()</span>
+            <span class="n">click_element_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">details_popup_class_name_</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s1">&#39;arguments[0].click();&#39;</span><span class="p">,</span> <span class="n">click_element_</span><span class="p">)</span>
+            <span class="n">details_element_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ui-listing-specification__table&#39;</span><span class="p">)</span>
+            <span class="n">details_class_name_</span> <span class="o">=</span> <span class="s1">&#39;.ui-listing-specification__table--row&#39;</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">ElementClickInterceptedException</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Click element not found for url (</span><span class="si">{</span><span class="n">url_</span><span class="si">}</span><span class="s1">), basic information will be retrieved&#39;</span><span class="p">)</span>
+            <span class="n">details_element_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ui-listing-specification__badge-wrapper&#39;</span><span class="p">)</span>
+            <span class="n">details_class_name_</span> <span class="o">=</span> <span class="s1">&#39;.ui-atomic-badges__children.relative&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">details_soup_</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">details_element_</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">details_soup_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">details_class_name_</span><span class="p">):</span>
+                <span class="n">label_</span><span class="p">,</span> <span class="n">value_</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)]</span>
+                <span class="n">scrap_data_</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">label_</span><span class="p">:</span> <span class="n">value_</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Failed to retrive property specification for url (</span><span class="si">{</span><span class="n">url_</span><span class="si">}</span><span class="s1">),&#39;</span>
+                <span class="s1">&#39; may retrieve incomplete information&#39;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_cacher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">until</span><span class="p">):</span>
+        <span class="n">file_</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="n">until_</span> <span class="o">=</span> <span class="n">until</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cached until </span><span class="si">{</span><span class="n">until_</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_observations</span><span class="p">))</span>
+ 
+    <span class="k">def</span> <span class="nf">scrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Scrap the website&quot;&quot;&quot;</span>
+        <span class="n">current_date_time_</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H-%M&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Scraped_Data/webscrap_log_</span><span class="si">{</span><span class="n">current_date_time_</span><span class="si">}</span><span class="s1">.log&#39;</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> 
+            <span class="p">)</span>
+        <span class="n">start_page_</span> <span class="o">=</span> <span class="n">start_page</span>
+        <span class="n">end_page_</span> <span class="o">=</span> <span class="n">end_page</span>
+        <span class="n">cache_file_path_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Scraped_Data/temp_cache_</span><span class="si">{</span><span class="n">current_date_time_</span><span class="si">}</span><span class="s1">.txt&#39;</span>
+        <span class="n">cache_file_</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file_path_</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_page_</span><span class="p">,</span> <span class="n">end_page_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="n">entry_page_url_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;&amp;page=</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s1">&#39;</span>  
+                <span class="bp">self</span><span class="o">.</span><span class="n">_main_page_accessor</span><span class="p">(</span><span class="n">entry_page_url_</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">link_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nav_links</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_listing_scraper</span><span class="p">(</span><span class="n">link_</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s1">&#39;Timeout occured when accessing url (</span><span class="si">{</span><span class="n">link_</span><span class="si">}</span><span class="s1">),&#39;</span>
+                            <span class="s1">&#39; may retrieve incomplete information&#39;</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>  
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_listing_scraper</span><span class="p">(</span><span class="n">link_</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_cacher</span><span class="p">(</span><span class="n">cache_file_path_</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeout occured when accesing entry page (</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_nav_links</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># resets the _nav_links, continue to next main entry page</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KeyboardInterrupt captured while accessing page (</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                <span class="k">break</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Scrapping finished, quitting browser.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_observations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s try our scraping framework:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/bogor/rumah/?&#39;</span>
+<span class="n">bogor_house_records</span> <span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">TEST_URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below shows an example of a single observation, a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with its keys are <code class="docutils literal notranslate"><span class="pre">column</span> <span class="pre">field</span></code> and the values pair are the <code class="docutils literal notranslate"><span class="pre">records</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bogor_house_records</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;url&#39;: &#39;https://www.rumah123.com/properti/bogor/hos10247521/#qid~76ff2ee6-b88b-4a4e-935d-8136ad1bd339&#39;,
+ &#39;currency&#39;: &#39;Rp&#39;,
+ &#39;price&#39;: &#39;500&#39;,
+ &#39;price_unit_scale&#39;: &#39;Juta&#39;,
+ &#39;title&#39;: &#39;Rumah Strategis Nego di Palas Asri Town House Harga All In Siap Kpr&#39;,
+ &#39;address&#39;: &#39;Bojong Gede, Bogor&#39;,
+ &#39;facilities&#39;: &#39;Taman, Keamanan&#39;,
+ &#39;k. tidur&#39;: &#39;2&#39;,
+ &#39;k. mandi&#39;: &#39;1&#39;,
+ &#39;l. tanah&#39;: &#39;83 m²&#39;,
+ &#39;l. bangunan&#39;: &#39;45 m²&#39;,
+ &#39;carport&#39;: &#39;1&#39;,
+ &#39;tipe properti&#39;: &#39;rumah&#39;,
+ &#39;sertifikat&#39;: &#39;shm - sertifikat hak milik&#39;,
+ &#39;daya listrik&#39;: &#39;1300 mah&#39;,
+ &#39;garasi&#39;: &#39;1&#39;,
+ &#39;jumlah lantai&#39;: &#39;1&#39;,
+ &#39;kondisi perabotan&#39;: &#39;unfurnished&#39;,
+ &#39;id iklan&#39;: &#39;hos10247521&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>After we collected the observation, we are going to check if the records can be processed using <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, as below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">house_bogor_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bogor_house_records</span><span class="p">)</span>
+<span class="n">house_bogor_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>22</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>url</th>
+      <td>https://www.rumah123.com/properti/bogor/hos106...</td>
+    </tr>
+    <tr>
+      <th>currency</th>
+      <td>Rp</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>1,68</td>
+    </tr>
+    <tr>
+      <th>price_unit_scale</th>
+      <td>Miliar</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>Rumah Luas Strategis Dekat Cileungsi Akses Mud...</td>
+    </tr>
+    <tr>
+      <th>address</th>
+      <td>Cileungsi, Bogor</td>
+    </tr>
+    <tr>
+      <th>facilities</th>
+      <td>Taman, Keamanan</td>
+    </tr>
+    <tr>
+      <th>k. tidur</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>k. mandi</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>l. tanah</th>
+      <td>200 m²</td>
+    </tr>
+    <tr>
+      <th>l. bangunan</th>
+      <td>90 m²</td>
+    </tr>
+    <tr>
+      <th>carport</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>tipe properti</th>
+      <td>rumah</td>
+    </tr>
+    <tr>
+      <th>sertifikat</th>
+      <td>hgb - hak guna bangunan</td>
+    </tr>
+    <tr>
+      <th>daya listrik</th>
+      <td>2200 mah</td>
+    </tr>
+    <tr>
+      <th>garasi</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>jumlah lantai</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>kondisi perabotan</th>
+      <td>unfurnished</td>
+    </tr>
+    <tr>
+      <th>id iklan</th>
+      <td>hos10612778</td>
+    </tr>
+    <tr>
+      <th>kondisi properti</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>hadap</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>kt. pembantu</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>km. pembantu</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>tahun dibangun</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>bedrooms</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>bathrooms</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>land size</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building size</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>carports</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>certificate</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>electricity</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>maid bedrooms</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>floors</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>property condition</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>furnishing</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>building orientation</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Note that information which not provided is labeled by <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as missing, as we expected. But we suffer from inconsistent labeling (due to website html inconsistencies), for example <code class="docutils literal notranslate"><span class="pre">k.</span> <span class="pre">tidur</span></code> should has the same meaning with <code class="docutils literal notranslate"><span class="pre">bedrooms</span></code>. This can be easily cleaned using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, which I will explain in the next notebook.</p>
+<p>This conclude explanation about web scraping using <code class="docutils literal notranslate"><span class="pre">Selenium</span></code> and <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code>.</p>
+</section>
+<section id="obtaining-estimated-coordinate-of-address">
+<h2>5. Obtaining Estimated Coordinate of Address<a class="headerlink" href="#obtaining-estimated-coordinate-of-address" title="Permalink to this headline">#</a></h2>
+<p>Automating coordinate finding using gmaps:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.desired_capabilities</span> <span class="kn">import</span> <span class="n">DesiredCapabilities</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">ElementClickInterceptedException</span><span class="p">,</span> <span class="n">NoSuchElementException</span>  
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">class</span> <span class="nc">CoordinateScraper</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_index_until</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">ChromeOptions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-infobars&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;start-maximized&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-extensions&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-notifications&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;profile.default_content_setting_values.notifications&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chrome_options</span><span class="o">.</span><span class="n">add_experimental_option</span><span class="p">(</span><span class="s1">&#39;prefs&#39;</span><span class="p">,</span> <span class="n">prefs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span>
+            <span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">chromedriver.exe&#39;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">chrome_options</span>
+            <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_location_scraper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">):</span>
+        <span class="n">keyword_</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="n">URL_</span> <span class="o">=</span> <span class="s1">&#39;https://www.google.com/maps/place/&#39;</span> <span class="o">+</span> <span class="n">keyword_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL_</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">location_class_name_</span> <span class="o">=</span> <span class="s1">&#39;tAiQdd&#39;</span>
+        <span class="n">coordinate_class_name_</span> <span class="o">=</span> <span class="s1">&#39;gb_8d.gb_1.gb_8c&#39;</span>  
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+                <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="n">location_class_name_</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+                <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="n">coordinate_class_name_</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">location_elements_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">location_class_name_</span><span class="p">)</span>
+        <span class="n">location_soup_</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">location_elements_</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">),</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+        <span class="n">location_tag_</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">location_soup_</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">]</span>\
+            <span class="o">+</span> <span class="p">[</span><span class="n">loc_</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">loc_</span> <span class="ow">in</span> <span class="n">location_soup_</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">location_tag_</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">location_tag_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">curr_url_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">current_url</span>
+            <span class="n">coord_</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;@.*/&#39;</span><span class="p">,</span> <span class="n">curr_url_</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">lat_long_</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="p">(</span><span class="n">coord_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord_</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="n">keyword_</span><span class="p">,</span> <span class="s1">&#39;lat_long&#39;</span><span class="p">:</span> <span class="n">lat_long_</span><span class="p">,</span> <span class="s1">&#39;gmaps_tag&#39;</span><span class="p">:</span> <span class="n">location_tag_</span>
+                <span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No location matches for (</span><span class="si">{</span><span class="n">keyword_</span><span class="si">}</span><span class="s1">), no coordinates returned&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_cacher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">until</span><span class="p">):</span>
+        <span class="n">file_</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="n">start_</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">until_</span> <span class="o">=</span> <span class="n">until</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cached from </span><span class="si">{</span><span class="n">start_</span><span class="si">}</span><span class="s1"> until </span><span class="si">{</span><span class="n">until_</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">scrap_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locations</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+        <span class="n">start_</span> <span class="o">=</span> <span class="n">start_index</span>
+        <span class="n">locations_</span> <span class="o">=</span> <span class="n">locations</span><span class="p">[</span><span class="n">start_</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">current_date_time_</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H-%M&#39;</span><span class="p">)</span>
+        <span class="n">cache_file_path_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Scraped_Data/coord_scrap_cache_</span><span class="si">{</span><span class="n">current_date_time_</span><span class="si">}</span><span class="s1">.txt&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Scraped_Data/coordscap_log_</span><span class="si">{</span><span class="n">current_date_time_</span><span class="si">}</span><span class="s1">.log&#39;</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> 
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">locations_</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_location_scraper</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">NoSuchElementException</span><span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No such element for (</span><span class="si">{</span><span class="n">locations_</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KeyboardInterrupt captured while accessing (</span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">start_</span> <span class="o">+</span> <span class="n">index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cached_index_until</span> <span class="o">+</span> <span class="n">start_</span> <span class="o">+</span> <span class="mi">10</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cached_index_until</span> <span class="o">+=</span> <span class="n">start_</span> <span class="o">+</span> <span class="n">index</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cacher</span><span class="p">(</span><span class="n">cache_file_path_</span><span class="p">,</span> <span class="n">start_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_index_until</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Scrapping finished, quitting browser.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_browser</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coordinates</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Scrap according to <code class="docutils literal notranslate"><span class="pre">location</span> <span class="pre">list</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Scraped_Data/raw/Location.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">location_string</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">locations_list</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">location_string</span><span class="p">)</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="n">CoordinateScraper</span><span class="p">()</span><span class="o">.</span><span class="n">scrap_coordinates</span><span class="p">(</span><span class="n">locations_list</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>address</th>
+      <th>lat_long</th>
+      <th>gmaps_tag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bekasi, Bekasi</td>
+      <td>(-6.2849775, 106.970127)</td>
+      <td>Kota Bks, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Setu, Bekasi</td>
+      <td>(-6.358777, 107.0348331)</td>
+      <td>Kec. Setu, Kabupaten Bekasi, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Harapan Indah, Bekasi</td>
+      <td>(-6.1817523, 106.9736839)</td>
+      <td>Harapan Indah, RT.005/RW.010, Medan Satria, Ke...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bekasi Kota, Bekasi</td>
+      <td>(-6.2845395, 106.973377)</td>
+      <td>Bekasi, Kota Bks, Jawa Barat</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cibitung, Bekasi</td>
+      <td>(-6.243801, 107.1036725)</td>
+      <td>Kec. Cibitung, Kabupaten Bekasi, Jawa Barat</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="appendix-web-scraping-workspace">
+<h2>Appendix - Web Scraping Workspace<a class="headerlink" href="#appendix-web-scraping-workspace" title="Permalink to this headline">#</a></h2>
+<p><strong>Scraping Jakarta House Price</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+
+<span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">current_date_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H-%M&#39;</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">to_csv</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Scraped_Data/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">current_date_time</span><span class="si">}</span><span class="s1">_page_</span><span class="si">{</span><span class="n">start_page</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">end_page</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cached_records_to_list</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">cached_records</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">cached_records</span><span class="p">)</span>
+        
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/dki-jakarta/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Jakarta&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">jakarta_records_1</span> <span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">jakarta_records_1</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/dki-jakarta/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Jakarta&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">jakarta_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">jakarta_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/dki-jakarta/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Jakarta&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">jakarta_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">jakarta_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jakarta_records_21_37</span> <span class="o">=</span> <span class="n">cached_records_to_list</span><span class="p">(</span><span class="s1">&#39;Scraped_Data/temp_cache_2022-10-08_13-40.txt&#39;</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">jakarta_records_21_37</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="s1">&#39;Jakarta&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Scraping Bogor House Price</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/bogor/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Bogor&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">bogor_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">bogor_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/bogor/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Bogor&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">31</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">bogor_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">bogor_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Scraping Tangerang House Price</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/tangerang/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Tangerang&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">tangerang_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">tangerang_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Scraping Depok House Price</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/depok/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Depok&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">depok_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">depok_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">depok_records_1_21</span> <span class="o">=</span> <span class="n">cached_records_to_list</span><span class="p">(</span><span class="s1">&#39;Scraped_Data/temp_cache_2022-10-09_11-37.txt&#39;</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">depok_records_1_21</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;Depok&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Scraping Bekasi House Price</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://www.rumah123.com/jual/bekasi/rumah/?&#39;</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Bekasi&#39;</span>
+<span class="n">start_page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">end_page</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">bekasi_records</span><span class="o">=</span> <span class="n">WebScraper</span><span class="p">(</span><span class="n">URL</span><span class="p">)</span><span class="o">.</span><span class="n">scrap</span><span class="p">(</span><span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">)</span>
+<span class="n">to_csv</span><span class="p">(</span><span class="n">bekasi_records</span><span class="p">,</span> <span class="n">start_page</span><span class="p">,</span> <span class="n">end_page</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nafis Barizki<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
