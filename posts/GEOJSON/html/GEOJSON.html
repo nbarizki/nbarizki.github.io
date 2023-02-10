@@ -1,0 +1,1318 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Contoh Pengolahan Data GeoJSON Menggunakan shapely, geopandas, dan plotly (in Python) &#8212; Contoh Pengolahan Data GeoJSON Menggunakan shapely, geopandas, dan plotly (in Python)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint single-page" id="site-navigation">
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nbarizki/geojsonwithpython/main?urlpath=tree/GEOJSON.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/nbarizki/geojsonwithpython"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/nbarizki/geojsonwithpython/issues/new?title=Issue%20on%20page%20%2FGEOJSON.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/GEOJSON.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#low-level-operations-menggunakan-shapely">
+   1.
+   <em>
+    Low-level
+   </em>
+   Operations menggunakan
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     shapely
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#contoh-implementasi-random-sampling-point-di-dalam-polygon">
+     <strong>
+      Contoh implementasi: random sampling point di dalam polygon
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multipolygon">
+     <strong>
+      Multipolygon
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementasi-geopandas">
+   2. Implementasi
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     geopandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membuat-geodataframe-dengan-membaca-geojson">
+     <strong>
+      Membuat GeoDataFrame dengan Membaca GeoJSON
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operasi-yang-melibatkan-geopandas">
+     <strong>
+      Operasi yang Melibatkan GeoPandas
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#contoh-output-geospatial-plot">
+     <strong>
+      Contoh Output: Geospatial Plot
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   3. Reference
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Contoh Pengolahan Data GeoJSON Menggunakan shapely, geopandas, dan plotly (in Python)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#low-level-operations-menggunakan-shapely">
+   1.
+   <em>
+    Low-level
+   </em>
+   Operations menggunakan
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     shapely
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#contoh-implementasi-random-sampling-point-di-dalam-polygon">
+     <strong>
+      Contoh implementasi: random sampling point di dalam polygon
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multipolygon">
+     <strong>
+      Multipolygon
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementasi-geopandas">
+   2. Implementasi
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     geopandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membuat-geodataframe-dengan-membaca-geojson">
+     <strong>
+      Membuat GeoDataFrame dengan Membaca GeoJSON
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operasi-yang-melibatkan-geopandas">
+     <strong>
+      Operasi yang Melibatkan GeoPandas
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#contoh-output-geospatial-plot">
+     <strong>
+      Contoh Output: Geospatial Plot
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   3. Reference
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="contoh-pengolahan-data-geojson-menggunakan-shapely-geopandas-dan-plotly-in-python">
+<h1>Contoh Pengolahan Data GeoJSON Menggunakan <em>shapely</em>, <em>geopandas</em>, dan <em>plotly</em> (in Python)<a class="headerlink" href="#contoh-pengolahan-data-geojson-menggunakan-shapely-geopandas-dan-plotly-in-python" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data wrangling, inspecting and utilities modules</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">geopandas</span>
+<span class="c1"># informative chart modules</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># geo module</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">,</span> <span class="n">Point</span>
+<span class="c1"># utilities</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c1"># setting pandas options</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:,.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_info_columns&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="low-level-operations-menggunakan-shapely">
+<h2>1. <em>Low-level</em> Operations menggunakan <code class="docutils literal notranslate"><span class="pre">shapely</span></code><a class="headerlink" href="#low-level-operations-menggunakan-shapely" title="Permalink to this headline">#</a></h2>
+<p>Package <em>shapely</em> memiliki banyak tipe geometri (lihat <a class="reference external" href="https://shapely.readthedocs.io/en/stable/geometry.html">dokumentasi</a> untuk info lebih jelasnya). Kita akan menggunakan tipe geometri yang paling sering dioperasikan menggunakan file <em>geojson</em>: <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, dan <code class="docutils literal notranslate"><span class="pre">MultiPolygon</span></code>. Object geometry <em>shapely</em> bersifat <em>immutable</em>.</p>
+<section id="contoh-implementasi-random-sampling-point-di-dalam-polygon">
+<h3><strong>Contoh implementasi: random sampling point di dalam polygon</strong><a class="headerlink" href="#contoh-implementasi-random-sampling-point-di-dalam-polygon" title="Permalink to this headline">#</a></h3>
+<p>Berikut adalah <em>polygon</em> DKI Jakarta (tidak termasuk kepulauan seribu). Polygon ini merupakan polygon <em>level 1</em> (administratif level <em>provinsi</em>).</p>
+<p><img alt="dki_jakarta_l1" src="img\DKI_Jakarta_LVL_1.PNG" /></p>
+<p>Kita akan membuat polygon diatas dalam bentuk object <em>shapely</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;data\DKI_JAKARTA_lvl_1.json&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">poly_geojson_1</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">poly_coord</span> <span class="o">=</span> <span class="n">poly_geojson_1</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;geometry&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">poly_obj</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="n">poly_coord</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dalam code diatas:</p>
+<ul class="simple">
+<li><p>Kita membaca file <em>geojson</em> menggunakan package <code class="docutils literal notranslate"><span class="pre">json</span></code></p></li>
+<li><p>Koordinat polygon kita akses didalam object <code class="docutils literal notranslate"><span class="pre">json</span></code> dari tahap sebelumnya</p></li>
+<li><p>Kita meng-<em>construct</em> <code class="docutils literal notranslate"><span class="pre">shapely.Polygon</span></code> dengan menggunakan koordinat polygon sebagai <code class="docutils literal notranslate"><span class="pre">shell</span></code> kwags.</p></li>
+</ul>
+<p>Kita bisa memanfaatkan <em>attribut</em> dan <em>method</em> dari object <code class="docutils literal notranslate"><span class="pre">shapely.Polygon</span></code>. Katakanlah kita mau mengecek apakah suatu titik koordinat berada di area DKI Jakarta. Kita gunakan geometri <em>point</em>, yaitu <code class="docutils literal notranslate"><span class="pre">shapely.Point</span></code>.</p>
+<p>Mengapa perlu menggunakan <code class="docutils literal notranslate"><span class="pre">shapely.Point</span></code>? Ini karena <em>method</em> yang akan kita gunakan (<code class="docutils literal notranslate"><span class="pre">shapely.Polygon.contains</span></code>) mengharuskan kita untuk <em>passing</em> argument berupa object <em>shapely</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinate</span> <span class="o">=</span> <span class="p">(</span><span class="mf">106.91497998166815</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.254602478608049</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;coordinate in DKI Jakarta: </span><span class="si">{</span><span class="n">poly_obj</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>coordinate in DKI Jakarta: True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dengan menggunakan method <code class="docutils literal notranslate"><span class="pre">shapely.Polygon.contains()</span></code> kita mengeceka apakah <code class="docutils literal notranslate"><span class="pre">shapely.Point</span></code> berada di dalam polygon tersebut.</p>
+<p>Problem di atas dapat kita kembangkan lagi, sebagai contoh: <em>Tentukan 100 titik sampling secara random di dalam lingkup DKI Jakarta.</em></p>
+<p>Kode dibawah adalah contoh solusi dari problem tersebut:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_random_points</span><span class="p">(</span><span class="n">polygon</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">num_points</span><span class="p">):</span>
+    <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">polygon</span><span class="o">.</span><span class="n">bounds</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_points</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">minx</span><span class="p">,</span> <span class="n">maxx</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">miny</span><span class="p">,</span> <span class="n">maxy</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">polygon</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+
+<span class="c1"># generate random points inside polygon</span>
+<span class="n">sampling_points</span> <span class="o">=</span> <span class="n">generate_random_points</span><span class="p">(</span><span class="n">poly_obj</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_mapbox</span><span class="p">(</span>
+    <span class="n">lat</span><span class="o">=</span><span class="n">sampling_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">lon</span><span class="o">=</span><span class="n">sampling_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sampling_points</span><span class="p">))</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sampling Points&#39;</span><span class="p">,</span>
+    <span class="n">mapbox_style</span><span class="o">=</span><span class="s2">&quot;stamen-toner&quot;</span><span class="p">,</span>            
+    <span class="n">autosize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+    <span class="n">mapbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">zoom</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;iframe&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><iframe
+    scrolling="no"
+    width="100%"
+    height="545px"
+    src="iframe_figures/figure_4.html"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+<p>Dalam kode diatas:</p>
+<ul class="simple">
+<li><p>Kita menggunakan attribute <code class="docutils literal notranslate"><span class="pre">shapely.Polygon.bound</span></code> untuk mendapatkan informasi terkait boundary polygon.</p></li>
+<li><p>Kita generate random point di dalam range boundary tersebut</p></li>
+<li><p>Kita cek, apakah titik tersebut berada di dalam polygon? Jika tidak, kita generate ulang titiknya sampai jumlah titik yang didapat sesuai</p></li>
+</ul>
+<p>Dapat kita lihat bahwa semua titik berada di dalam lingkup administratif DKI Jakarta.</p>
+</section>
+<section id="multipolygon">
+<h3><strong>Multipolygon</strong><a class="headerlink" href="#multipolygon" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">shapely.MultiPolygon</span></code> adalah object untuk menyimpan deretan <em>Polygon</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;data\DKI_JAKARTA_lvl_3.json&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">poly_geojson_3</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">districts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">poly_geojson_3</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">]:</span>
+    <span class="n">districts</span><span class="p">[</span><span class="n">feature</span><span class="p">[</span><span class="s1">&#39;properties&#39;</span><span class="p">][</span><span class="s1">&#39;NAME_3&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">poly_districs</span> <span class="o">=</span> <span class="n">MultiPolygon</span><span class="p">([</span><span class="n">values</span> <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">districts</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kita bisa mengakses object di dalam <em>MultiPolygon</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Luas area: </span><span class="si">{</span><span class="n">poly_districs</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">coordinate</span> <span class="o">=</span> <span class="p">(</span><span class="mf">106.91497998166815</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.254602478608049</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Coordinate in geoms: </span><span class="si">{</span><span class="n">poly_districs</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Luas area: 0.0008776349999998809
+Coordinate in geoms: False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="implementasi-geopandas">
+<h2>2. Implementasi <code class="docutils literal notranslate"><span class="pre">geopandas</span></code><a class="headerlink" href="#implementasi-geopandas" title="Permalink to this headline">#</a></h2>
+<p>Package <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> adalah kombinasi antara <code class="docutils literal notranslate"><span class="pre">pandas</span></code> dan <code class="docutils literal notranslate"><span class="pre">shapely</span></code> sebagai package untuk mengoperasikan geometric object. Object utamanya yaitu <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>.</p>
+<section id="membuat-geodataframe-dengan-membaca-geojson">
+<h3><strong>Membuat GeoDataFrame dengan Membaca GeoJSON</strong><a class="headerlink" href="#membuat-geodataframe-dengan-membaca-geojson" title="Permalink to this headline">#</a></h3>
+<p>Kita bisa membuat <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> menggunakan <code class="docutils literal notranslate"><span class="pre">geopandas.read_file</span></code>:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jakarta_gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data\DKI_JAKARTA_lvl_3.json&#39;</span><span class="p">)</span>
+<span class="n">jakarta_gdf</span> <span class="o">=</span> <span class="n">jakarta_gdf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;COUNTRY&#39;</span><span class="p">:</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;NAME_1&#39;</span><span class="p">:</span> <span class="s1">&#39;province&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;NAME_2&#39;</span><span class="p">:</span> <span class="s1">&#39;city&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME_3&#39;</span><span class="p">:</span> <span class="s1">&#39;district&#39;</span><span class="p">}</span>
+    <span class="p">)</span>
+<span class="n">jakarta_gdf</span> <span class="o">=</span> <span class="n">jakarta_gdf</span><span class="p">[[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;province&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;district&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
+<span class="n">jakarta_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+        
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>province</th>
+      <th>city</th>
+      <th>district</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Indonesia</td>
+      <td>JakartaRaya</td>
+      <td>JakartaBarat</td>
+      <td>Cengkareng</td>
+      <td>MULTIPOLYGON (((106.70850 -6.18110, 106.70040 ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Indonesia</td>
+      <td>JakartaRaya</td>
+      <td>JakartaBarat</td>
+      <td>Grogolpetamburan</td>
+      <td>MULTIPOLYGON (((106.79450 -6.15270, 106.79940 ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Indonesia</td>
+      <td>JakartaRaya</td>
+      <td>JakartaBarat</td>
+      <td>Kalideres</td>
+      <td>MULTIPOLYGON (((106.68870 -6.17120, 106.69000 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Indonesia</td>
+      <td>JakartaRaya</td>
+      <td>JakartaBarat</td>
+      <td>Kebonjeruk</td>
+      <td>MULTIPOLYGON (((106.78270 -6.20260, 106.78350 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Indonesia</td>
+      <td>JakartaRaya</td>
+      <td>JakartaBarat</td>
+      <td>Kembangan</td>
+      <td>MULTIPOLYGON (((106.72020 -6.22420, 106.71760 ...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Dari <em>GeoDataFrame</em> diatas kita dapat setiap <em>features</em> dari GeoJSON DKI Jakarta level 3. Kolom <code class="docutils literal notranslate"><span class="pre">geometry</span></code> menyimpan object <code class="docutils literal notranslate"><span class="pre">shapely</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">jakarta_gdf</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
+<span class="n">sample</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;shapely.geometry.multipolygon.MultiPolygon&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/GEOJSON_24_1.svg" src="_images/GEOJSON_24_1.svg" /></div>
+</div>
+</section>
+<section id="operasi-yang-melibatkan-geopandas">
+<h3><strong>Operasi yang Melibatkan GeoPandas</strong><a class="headerlink" href="#operasi-yang-melibatkan-geopandas" title="Permalink to this headline">#</a></h3>
+<p>GeoPandas mempunyai <em>tools</em> untuk mengolah GeoDataFrame (satu atau lebih). Dalam contoh kali ini, kita akan menggabungkan dua <em>GeoDataFrame</em> menggunakan <code class="docutils literal notranslate"><span class="pre">geopandas.sjoin</span></code>.</p>
+<p>Di dalam repository ini terdapat data yang berisi <em>jarak dari suatu titik (lat, long) terhadap fasilitas publik terdekat (dalam contoh ini adalah rumah sakit)</em>. Dataset ini berisi <em>records</em>  berikut:</p>
+<p><img alt="sampling" src="img/Contoh_hasil_sampling.PNG" /></p>
+<p>Kita akan meng-construct satu <em>GeoDataFrame</em> menggunakan dataset ini!</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data\dki_data_akses_hospital.csv&#39;</span><span class="p">)</span>
+<span class="n">sampling_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waktu</th>
+      <th>tag</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>tag_tujuan</th>
+      <th>tujuan_terdekat</th>
+      <th>durasi_tempuh</th>
+      <th>durasi_tempuh_unit</th>
+      <th>jarak_tempuh</th>
+      <th>jarak_tempuh_unit</th>
+      <th>rute</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+      <td>Jl. Elang Malindo</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+      <td>Jl. Raya Jatiwaringin</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+      <td>Jl. Elang Malindo V</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+      <td>Jl. Elang Malindo III</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+      <td>Jl. Wirajasa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Dapat kita lihat bahwa data tersebut dalam <em>long format</em>. Dalam satu destinasi terdapat banyak <em>rute</em> (jalan) yang dilalui dari titik ke destinasi terdekat.</p>
+<p>Dalam contoh ini, kita tidak membutuhkan data rute ini:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_df</span> <span class="o">=</span> <span class="n">sampling_df</span>\
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rute&#39;</span><span class="p">])</span>\
+    <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sampling_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waktu</th>
+      <th>tag</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>tag_tujuan</th>
+      <th>tujuan_terdekat</th>
+      <th>durasi_tempuh</th>
+      <th>durasi_tempuh_unit</th>
+      <th>jarak_tempuh</th>
+      <th>jarak_tempuh_unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-02-06_13-05</td>
+      <td>mengemudi</td>
+      <td>-6.22</td>
+      <td>106.92</td>
+      <td>hospital</td>
+      <td>Rumah Sakit Harapan Jayakarta, Blok KM No.18, ...</td>
+      <td>12.00</td>
+      <td>min</td>
+      <td>5.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2023-02-06_13-06</td>
+      <td>mengemudi</td>
+      <td>-6.18</td>
+      <td>106.78</td>
+      <td>hospital</td>
+      <td>RS Grha Kedoya, Jl. Panjang No.26, RT.15/RW.7,...</td>
+      <td>12.00</td>
+      <td>min</td>
+      <td>3.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-02-06_13-07</td>
+      <td>mengemudi</td>
+      <td>-6.16</td>
+      <td>106.96</td>
+      <td>hospital</td>
+      <td>Gading Pluit Hospital</td>
+      <td>22.00</td>
+      <td>min</td>
+      <td>9.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-02-06_13-07</td>
+      <td>mengemudi</td>
+      <td>-6.34</td>
+      <td>106.82</td>
+      <td>hospital</td>
+      <td>Hospital Ali Sibroh Malisi, Jl. Wr. Sila No.1,...</td>
+      <td>6.00</td>
+      <td>min</td>
+      <td>1.50</td>
+      <td>km</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Kolom <code class="docutils literal notranslate"><span class="pre">lat</span></code> dan <code class="docutils literal notranslate"><span class="pre">long</span></code> adalah 100 titik sampling yang kita dapat sebelumnya.</p>
+<p>Sekarang kita akan convert <em>DataFrame</em> diatas menjadi <em>GeoDataFrame</em>:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sampling_df</span><span class="p">)</span>
+<span class="n">sampling_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waktu</th>
+      <th>tag</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>tag_tujuan</th>
+      <th>tujuan_terdekat</th>
+      <th>durasi_tempuh</th>
+      <th>durasi_tempuh_unit</th>
+      <th>jarak_tempuh</th>
+      <th>jarak_tempuh_unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-02-06_13-04</td>
+      <td>mengemudi</td>
+      <td>-6.25</td>
+      <td>106.91</td>
+      <td>hospital</td>
+      <td>Harum Sisma Medika Hospital, Jl. Lobi dan UGD ...</td>
+      <td>9.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-02-06_13-05</td>
+      <td>mengemudi</td>
+      <td>-6.22</td>
+      <td>106.92</td>
+      <td>hospital</td>
+      <td>Rumah Sakit Harapan Jayakarta, Blok KM No.18, ...</td>
+      <td>12.00</td>
+      <td>min</td>
+      <td>5.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2023-02-06_13-06</td>
+      <td>mengemudi</td>
+      <td>-6.18</td>
+      <td>106.78</td>
+      <td>hospital</td>
+      <td>RS Grha Kedoya, Jl. Panjang No.26, RT.15/RW.7,...</td>
+      <td>12.00</td>
+      <td>min</td>
+      <td>3.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-02-06_13-07</td>
+      <td>mengemudi</td>
+      <td>-6.16</td>
+      <td>106.96</td>
+      <td>hospital</td>
+      <td>Gading Pluit Hospital</td>
+      <td>22.00</td>
+      <td>min</td>
+      <td>9.70</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-02-06_13-07</td>
+      <td>mengemudi</td>
+      <td>-6.34</td>
+      <td>106.82</td>
+      <td>hospital</td>
+      <td>Hospital Ali Sibroh Malisi, Jl. Wr. Sila No.1,...</td>
+      <td>6.00</td>
+      <td>min</td>
+      <td>1.50</td>
+      <td>km</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><em>GeoDataFrame</em> diatas belum sepenuhnya menjadi <code class="docutils literal notranslate"><span class="pre">gdf</span></code> karena kekurangan satu data vital: <code class="docutils literal notranslate"><span class="pre">geometric</span> <span class="pre">spatial</span></code> data. Oleh karena itu, kita akan membuat satu kolom geometric yang mengandung <em>geometric</em> dalam format <code class="docutils literal notranslate"><span class="pre">shapely.Point</span></code>:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">get_point_vect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">get_point</span><span class="p">)</span>
+
+<span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">sampling_gdf</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_xy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">sampling_gdf</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kita akan menggabungkan kolom [<code class="docutils literal notranslate"><span class="pre">district</span></code>, <code class="docutils literal notranslate"><span class="pre">geometry</span></code>] dari <code class="docutils literal notranslate"><span class="pre">jakarta_gdf</span></code> ke dalam <code class="docutils literal notranslate"><span class="pre">sampling_gdf</span></code> dengan menggunakan codes berikut:</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_gdf_joined</span> <span class="o">=</span> \
+    <span class="n">geopandas</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span>
+        <span class="n">jakarta_gdf</span><span class="p">[[</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="s1">&#39;district&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]],</span> 
+        <span class="n">sampling_gdf</span><span class="p">,</span>  
+        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s1">&#39;contains&#39;</span><span class="p">)</span>
+
+<span class="n">sampling_gdf_joined</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>district</th>
+      <th>geometry</th>
+      <th>index_right</th>
+      <th>waktu</th>
+      <th>tag</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>tag_tujuan</th>
+      <th>tujuan_terdekat</th>
+      <th>durasi_tempuh</th>
+      <th>durasi_tempuh_unit</th>
+      <th>jarak_tempuh</th>
+      <th>jarak_tempuh_unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>JakartaBarat</td>
+      <td>Cengkareng</td>
+      <td>MULTIPOLYGON (((106.70850 -6.18110, 106.70040 ...</td>
+      <td>31</td>
+      <td>2023-02-06_13-25</td>
+      <td>mengemudi</td>
+      <td>-6.18</td>
+      <td>106.71</td>
+      <td>hospital</td>
+      <td>Klinik Citra Keluarga Medika, Jl. Raya No.74 R...</td>
+      <td>8.00</td>
+      <td>min</td>
+      <td>1.90</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>JakartaBarat</td>
+      <td>Cengkareng</td>
+      <td>MULTIPOLYGON (((106.70850 -6.18110, 106.70040 ...</td>
+      <td>87</td>
+      <td>2023-02-06_14-00</td>
+      <td>mengemudi</td>
+      <td>-6.17</td>
+      <td>106.72</td>
+      <td>hospital</td>
+      <td>Pondok Indah Hospital - Puri Indah, Jl. Puri I...</td>
+      <td>21.00</td>
+      <td>min</td>
+      <td>6.90</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>JakartaBarat</td>
+      <td>Cengkareng</td>
+      <td>MULTIPOLYGON (((106.70850 -6.18110, 106.70040 ...</td>
+      <td>61</td>
+      <td>2023-02-06_13-45</td>
+      <td>mengemudi</td>
+      <td>-6.17</td>
+      <td>106.73</td>
+      <td>hospital</td>
+      <td>Pondok Indah Hospital - Puri Indah, Jl. Puri I...</td>
+      <td>11.00</td>
+      <td>min</td>
+      <td>2.50</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>JakartaBarat</td>
+      <td>Cengkareng</td>
+      <td>MULTIPOLYGON (((106.70850 -6.18110, 106.70040 ...</td>
+      <td>64</td>
+      <td>2023-02-06_13-47</td>
+      <td>mengemudi</td>
+      <td>-6.13</td>
+      <td>106.73</td>
+      <td>hospital</td>
+      <td>Ciputra Hospital CitraGarden City, Jl. Satu Ma...</td>
+      <td>13.00</td>
+      <td>min</td>
+      <td>4.00</td>
+      <td>km</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>JakartaBarat</td>
+      <td>Grogolpetamburan</td>
+      <td>MULTIPOLYGON (((106.79450 -6.15270, 106.79940 ...</td>
+      <td>14</td>
+      <td>2023-02-06_13-14</td>
+      <td>mengemudi</td>
+      <td>-6.16</td>
+      <td>106.78</td>
+      <td>hospital</td>
+      <td>RS Grha Kedoya, Jl. Panjang No.26, RT.15/RW.7,...</td>
+      <td>10.00</td>
+      <td>min</td>
+      <td>3.00</td>
+      <td>km</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Perhatikan bahwa kita menggunakan operasi <code class="docutils literal notranslate"><span class="pre">contains</span></code>, sama seperti <em>low-level operations</em> yang sudah dijelaskan sebelumnya. Hanya dengan menggunakan <code class="docutils literal notranslate"><span class="pre">geopandas.sjoin</span></code>, operasi ini dilakukan <em>row-wise</em> (vectorized).</p>
+</section>
+<section id="contoh-output-geospatial-plot">
+<h3><strong>Contoh Output: Geospatial Plot</strong><a class="headerlink" href="#contoh-output-geospatial-plot" title="Permalink to this headline">#</a></h3>
+<p>Dari <em>GeoDataFrame</em> diatas, terdapat <code class="docutils literal notranslate"><span class="pre">MULTIPOLYGON</span></code> geometry. Kita bisa menggunakan dataframe diatas untuk membuat plot berdasarkan polygon tersebut, dalam contoh ini akan dihasilkan plot level <em>kecamatan</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">agg_sampling_df</span> <span class="o">=</span> <span class="n">sampling_gdf_joined</span>\
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;district&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;durasi_tempuh&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>\
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">agg_sampling_df</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">agg_sampling_df</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">agg_sampling_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;durasi_tempuh&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Rata-rata Durasi Tempuh (menit) ke Rumah Sakit Terdekat&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/GEOJSON_39_0.png" src="_images/GEOJSON_39_0.png" />
+</div>
+</div>
+<p>Di atas adalah contoh penggunaan <code class="docutils literal notranslate"><span class="pre">GeoDataFrame.plot()</span></code>. Dalam contoh di atas, kita melakukan aggregate <em>mean</em> untuk durasi tempuh berdasarkan <code class="docutils literal notranslate"><span class="pre">kecamatan</span></code>. Terdapat <em>missing records</em> di beberapa titik kecamatan.</p>
+<p>Selain menggunakan <code class="docutils literal notranslate"><span class="pre">GeoDataFrame.plot()</span></code>, kita bisa menggunakan <code class="docutils literal notranslate"><span class="pre">plotly</span></code> untuk menghasilkan plot interaktif:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;data\DKI_JAKARTA_lvl_3.json&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">poly_geojson_3</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span>
+    <span class="n">data_frame</span><span class="o">=</span><span class="n">agg_sampling_df</span><span class="p">,</span>
+    <span class="n">geojson</span><span class="o">=</span><span class="n">poly_geojson_3</span><span class="p">,</span>
+    <span class="n">locations</span><span class="o">=</span><span class="s1">&#39;district&#39;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;durasi_tempuh&#39;</span><span class="p">,</span>
+    <span class="n">featureidkey</span><span class="o">=</span><span class="s1">&#39;properties.NAME_3&#39;</span><span class="p">,</span>
+    <span class="n">fitbounds</span><span class="o">=</span><span class="s1">&#39;locations&#39;</span><span class="p">,</span>
+    <span class="n">basemap_visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Rata-rata Durasi Tempuh (menit) ke Rumah Sakit Terdekat&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;iframe&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><iframe
+    scrolling="no"
+    width="100%"
+    height="545px"
+    src="iframe_figures/figure_15.html"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+</section>
+</section>
+<section id="reference">
+<h2>3. Reference<a class="headerlink" href="#reference" title="Permalink to this headline">#</a></h2>
+<p>Data GeoJSON didapat dari: <a class="reference external" href="https://gadm.org/download_country.html">GADM</a>.</p>
+<p>Online GeoJSON editor menggunakan: <a class="reference external" href="https://geoman.io">Geoman.io</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nafis Barizki<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
