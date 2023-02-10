@@ -466,7 +466,7 @@ title="Print to PDF"
 <section id="contoh-implementasi-random-sampling-point-di-dalam-polygon">
 <h3><strong>Contoh implementasi: random sampling point di dalam polygon</strong><a class="headerlink" href="#contoh-implementasi-random-sampling-point-di-dalam-polygon" title="Permalink to this headline">#</a></h3>
 <p>Berikut adalah <em>polygon</em> DKI Jakarta (tidak termasuk kepulauan seribu). Polygon ini merupakan polygon <em>level 1</em> (administratif level <em>provinsi</em>).</p>
-<p><img alt="dki_jakarta_l1" src="img\DKI_Jakarta_LVL_1.PNG" /></p>
+<p><img alt="dki_jakarta_l1" src="img%5CDKI_Jakarta_LVL_1.PNG" /></p>
 <p>Kita akan membuat polygon diatas dalam bentuk object <em>shapely</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -704,7 +704,7 @@ Coordinate in geoms: False
 <h3><strong>Operasi yang Melibatkan GeoPandas</strong><a class="headerlink" href="#operasi-yang-melibatkan-geopandas" title="Permalink to this headline">#</a></h3>
 <p>GeoPandas mempunyai <em>tools</em> untuk mengolah GeoDataFrame (satu atau lebih). Dalam contoh kali ini, kita akan menggabungkan dua <em>GeoDataFrame</em> menggunakan <code class="docutils literal notranslate"><span class="pre">geopandas.sjoin</span></code>.</p>
 <p>Di dalam repository ini terdapat data yang berisi <em>jarak dari suatu titik (lat, long) terhadap fasilitas publik terdekat (dalam contoh ini adalah rumah sakit)</em>. Dataset ini berisi <em>records</em>  berikut:</p>
-<p><img alt="sampling" src="img/Contoh_hasil_sampling.PNG" /></p>
+<p><img alt="sampling" src="img%5CContoh_hasil_sampling.PNG" /></p>
 <p>Kita akan meng-construct satu <em>GeoDataFrame</em> menggunakan dataset ini!</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
@@ -1047,12 +1047,7 @@ Coordinate in geoms: False
 <p><em>GeoDataFrame</em> diatas belum sepenuhnya menjadi <code class="docutils literal notranslate"><span class="pre">gdf</span></code> karena kekurangan satu data vital: <code class="docutils literal notranslate"><span class="pre">geometric</span> <span class="pre">spatial</span></code> data. Oleh karena itu, kita akan membuat satu kolom geometric yang mengandung <em>geometric</em> dalam format <code class="docutils literal notranslate"><span class="pre">shapely.Point</span></code>:</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-<span class="n">get_point_vect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">get_point</span><span class="p">)</span>
-
-<span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">sampling_gdf</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">sampling_gdf</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
     <span class="n">geometry</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_xy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
     <span class="p">)</span>
 <span class="n">sampling_gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">sampling_gdf</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
