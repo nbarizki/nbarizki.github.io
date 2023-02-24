@@ -1,0 +1,1620 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Java Programming Cheatsheet &#8212; Java Programming Cheatsheet</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint single-page" id="site-navigation">
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Cheatsheet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Cheatsheet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-of-java-and-python-programming-languages">
+   Comparison of Java and Python Programming Languages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#datatypes">
+   Datatypes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#operators">
+   Operators
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#arithmetic-operators">
+     <strong>
+      Arithmetic Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assignment-operators">
+     <strong>
+      Assignment Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparison-operators">
+     <strong>
+      Comparison Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logical-operators">
+     <strong>
+      Logical Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bitwise-operators">
+     <strong>
+      Bitwise Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ternary-operator">
+     <strong>
+      Ternary Operator
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unary-operators">
+     <strong>
+      Unary Operators
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-structures">
+   Control Structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-statements">
+     <strong>
+      Conditional Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loop-statements">
+     <strong>
+      Loop Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jump-statements">
+     <strong>
+      Jump Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exception-handling">
+     <strong>
+      Exception Handling
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structures">
+   Data Structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#java-data-structures">
+     <strong>
+      Java data Structures
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#array-operations">
+     <strong>
+      Array Operations
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scope-level">
+   Scope Level
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#level-of-visibility">
+     <strong>
+      Level of Visibility
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifiers">
+     <strong>
+      Modifiers
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#anatomy-of-methods-in-java">
+   Anatomy of Methods in Java
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#oop-with-java">
+   OOP with Java
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Java Programming Cheatsheet</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#comparison-of-java-and-python-programming-languages">
+   Comparison of Java and Python Programming Languages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#datatypes">
+   Datatypes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#operators">
+   Operators
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#arithmetic-operators">
+     <strong>
+      Arithmetic Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assignment-operators">
+     <strong>
+      Assignment Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparison-operators">
+     <strong>
+      Comparison Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logical-operators">
+     <strong>
+      Logical Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bitwise-operators">
+     <strong>
+      Bitwise Operators
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ternary-operator">
+     <strong>
+      Ternary Operator
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unary-operators">
+     <strong>
+      Unary Operators
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-structures">
+   Control Structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-statements">
+     <strong>
+      Conditional Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loop-statements">
+     <strong>
+      Loop Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jump-statements">
+     <strong>
+      Jump Statements
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exception-handling">
+     <strong>
+      Exception Handling
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structures">
+   Data Structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#java-data-structures">
+     <strong>
+      Java data Structures
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#array-operations">
+     <strong>
+      Array Operations
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scope-level">
+   Scope Level
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#level-of-visibility">
+     <strong>
+      Level of Visibility
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifiers">
+     <strong>
+      Modifiers
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#anatomy-of-methods-in-java">
+   Anatomy of Methods in Java
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#oop-with-java">
+   OOP with Java
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="java-programming-cheatsheet">
+<h1>Java Programming Cheatsheet<a class="headerlink" href="#java-programming-cheatsheet" title="Permalink to this headline">#</a></h1>
+<section id="comparison-of-java-and-python-programming-languages">
+<h2>Comparison of Java and Python Programming Languages<a class="headerlink" href="#comparison-of-java-and-python-programming-languages" title="Permalink to this headline">#</a></h2>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Concept</th>
+            <th>Java</th>
+            <th>Python</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Objects and Classes</td>
+            <td>Java is a fully object-oriented language, with everything represented as an object.</td>
+            <td>Python is also object-oriented, but allows for more flexibility in terms of object-oriented programming.
+            </td>
+        </tr>
+        <tr>
+            <td>Variables and Data Types</td>
+            <td>Java is a statically-typed language, which means that variables must be declared with a specific data
+                type.</td>
+            <td>Python is a dynamically-typed language, which means that the data type of a variable is determined at
+                runtime.</td>
+        </tr>
+        <tr>
+            <td>Operators</td>
+            <td>Java provides a wide range of operators, including arithmetic, comparison, and logical operators.</td>
+            <td>Python also provides a range of operators, including arithmetic, comparison, and logical operators.</td>
+        </tr>
+        <tr>
+            <td>Control Structures</td>
+            <td>Java provides if-else statements, for loops, and while loops for controlling the flow of execution in a
+                program.</td>
+            <td>Python provides if-elif-else statements, for loops, and while loops, as well as other control structures
+                such as try-except blocks for exception handling.</td>
+        </tr>
+        <tr>
+            <td>Methods</td>
+            <td>Java allows you to define your own methods and call them from other parts of your code.</td>
+            <td>Python also allows you to define and call methods.</td>
+        </tr>
+        <tr>
+            <td>Arrays</td>
+            <td>Java provides several types of arrays, including one-dimensional and multi-dimensional arrays.</td>
+            <td>Python provides lists, which are similar to arrays but are more flexible and can store elements of
+                different data types.</td>
+        </tr>
+        <tr>
+            <td>Exception Handling</td>
+            <td>Java provides try-catch blocks for handling exceptions.</td>
+            <td>Python provides try-except blocks for handling exceptions.</td>
+        </tr>
+        <tr>
+            <td>Memory Management</td>
+            <td>Java requires explicit memory management with features like garbage collection.</td>
+            <td>Python has automatic memory management and garbage collection.</td>
+        </tr>
+        <tr>
+            <td>Platform Independence</td>
+            <td>Java programs can run on any platform with JVM.</td>
+            <td>Python programs can run on any platform with Python interpreter.</td>
+        </tr>
+        <tr>
+            <td>Performance</td>
+            <td>Java programs are generally faster than Python programs.</td>
+            <td>Python programs are generally slower than Java programs.</td>
+        </tr>
+        <tr>
+            <td>Learning Curve</td>
+            <td>Java has a steeper learning curve than Python.</td>
+            <td>Python has a relatively easier learning curve than Java.</td>
+        </tr>
+        <tr>
+            <td>Libraries and Frameworks</td>
+            <td>Java has a vast collection of libraries and frameworks for various purposes.</td>
+            <td>Python also has a large collection of libraries and frameworks, but comparatively fewer than Java.</td>
+        </tr>
+        <tr>
+            <td>Usage</td>
+            <td>Java is commonly used for enterprise applications, Android development, and large-scale web
+                applications.</td>
+            <td>Python is commonly used for scientific computing, data analysis, web development, artificial
+                intelligence, and machine learning.</td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="datatypes">
+<h2>Datatypes<a class="headerlink" href="#datatypes" title="Permalink to this headline">#</a></h2>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Data Type</th>
+            <th>Description</th>
+            <th>Syntax Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>byte</td>
+            <td>A 1-byte integer</td>
+            <td><code>byte b = 127;</code></td>
+        </tr>
+        <tr>
+            <td>short</td>
+            <td>A 2-byte integer</td>
+            <td><code>short s = 32767;</code></td>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>A 4-byte integer</td>
+            <td><code>int i = 2147483647;</code></td>
+        </tr>
+        <tr>
+            <td>long</td>
+            <td>An 8-byte integer</td>
+            <td><code>long l = 9223372036854775807L;</code></td>
+        </tr>
+        <tr>
+            <td>float</td>
+            <td>A 4-byte floating point number</td>
+            <td><code>float f = 3.14159f;</code></td>
+        </tr>
+        <tr>
+            <td>double</td>
+            <td>An 8-byte floating point number</td>
+            <td><code>double d = 3.141592653589793;</code></td>
+        </tr>
+        <tr>
+            <td>boolean</td>
+            <td>A boolean value of either <code>true</code> or <code>false</code></td>
+            <td><code>boolean b = true;</code></td>
+        </tr>
+        <tr>
+            <td>char</td>
+            <td>A single Unicode character</td>
+            <td><code>char c = 'a';</code></td>
+        </tr>
+        <tr>
+            <td>String</td>
+            <td>A sequence of characters</td>
+            <td><code>String str = "Hello, world!";</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">#</a></h2>
+<section id="arithmetic-operators">
+<h3><strong>Arithmetic Operators</strong><a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>+</td>
+            <td>Addition operator adds two operands.</td>
+            <td><code>int sum = 5 + 3; // sum is 8</code></td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>Subtraction operator subtracts two operands.</td>
+            <td><code>int difference = 5 - 3; // difference is 2</code></td>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>Multiplication operator multiplies two operands.</td>
+            <td><code>int product = 5 * 3; // product is 15</code></td>
+        </tr>
+        <tr>
+            <td>/</td>
+            <td>Division operator divides two operands.</td>
+            <td><code>int quotient = 5 / 3; // quotient is 1</code></td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>Modulus operator returns the remainder after division of two operands.</td>
+            <td><code>int remainder = 5 % 3; // remainder is 2</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="assignment-operators">
+<h3><strong>Assignment Operators</strong><a class="headerlink" href="#assignment-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>=</td>
+            <td>Simple assignment operator assigns a value to a variable.</td>
+            <td><code>int x = 5; // x is 5</code></td>
+        </tr>
+        <tr>
+            <td>+=</td>
+            <td>Add and assign operator adds the right operand to the left operand and assigns the result to the left
+                operand.</td>
+            <td><code>int x = 5; x += 3; // x is 8</code></td>
+        </tr>
+        <tr>
+            <td>-=</td>
+            <td>Subtract and assign operator subtracts the right operand from the left operand and assigns the result to
+                the left operand.</td>
+            <td><code>int x = 5; x -= 3; // x is 2</code></td>
+        </tr>
+        <tr>
+            <td>*=</td>
+            <td>Multiply and assign operator multiplies the right operand with the left operand and assigns the result
+                to the left operand.</td>
+            <td><code>int x = 5; x *= 3; // x is 15</code></td>
+        </tr>
+        <tr>
+            <td>/=</td>
+            <td>Divide and assign operator divides the left operand by the right operand and assigns the result to the
+                left operand.</td>
+            <td><code>int x = 5; x /= 3; // x is 1</code></td>
+        </tr>
+        <tr>
+            <td>%=</td>
+            <td>Modulus and assign operator returns the remainder after division of the left operand by the right
+                operand and assigns the result to the left operand.</td>
+            <td><code>int x = 5; x %= 3; // x is 2</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="comparison-operators">
+<h3><strong>Comparison Operators</strong><a class="headerlink" href="#comparison-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>==</td>
+            <td>Equal to operator compares two operands for equality.</td>
+            <td><code>boolean isEqual = 5 == 3; // isEqual is false</code></td>
+        </tr>
+        <tr>
+            <td>!=</td>
+            <td>Not equal to operator compares two operands for inequality.</td>
+            <td><code>boolean isNotEqual = 5 != 3; // isNotEqual is true</code></td>
+        </tr>
+        <tr>
+            <td>&gt;</td>
+            <td>Greater than operator compares two operands and returns true if the left operand is greater than the
+                right operand.</td>
+            <td><code>boolean isGreaterThan = 5 &gt; 3; // isGreaterThan is true</code></td>
+        </tr>
+        <tr>
+            <td>&lt;</td>
+            <td>Less than operator compares two operands and returns true if the left operand is less than the right
+                operand.</td>
+            <td><code>boolean isLessThan = 5 &lt; 3; // isLessThan is false</code></td>
+        </tr>
+        <tr>
+            <td>&gt;=</td>
+            <td>Greater than or equal to operator compares two operands and returns true if the left operand is greater
+                than or equal to the right operand.</td>
+            <td><code>boolean isGreaterThanOrEqual = 5 &gt;= 3; // isGreaterThanOrEqual is true</code></td>
+        </tr>
+        <tr>
+            <td>&lt;=</td>
+            <td>Less than or equal to operator compares two operands and returns true if the left operand is less than
+                or equal to the right operand.</td>
+            <td><code>boolean isLessThanOrEqual = 5 &lt;= 3; // isLessThanOrEqual is false</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="logical-operators">
+<h3><strong>Logical Operators</strong><a class="headerlink" href="#logical-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&amp;&amp;</td>
+            <td>Logical AND operator returns true if both operands are true.</td>
+            <td><code>boolean isTrue = (5 &gt; 3) &amp;&amp; (7 &lt; 10); // isTrue is true</code></td>
+        </tr>
+        <tr>
+            <td>||</td>
+            <td>Logical OR operator returns true if either of the operands is true.</td>
+            <td><code>boolean isTrue = (5 > 3) || (7 > 10); // isTrue is true</code></td>
+        </tr>
+        <tr>
+            <td>! </td>
+            <td>Logical NOT operator returns the opposite boolean value of the operand.</td>
+            <td><code>boolean isFalse = !(5 > 3); // isFalse is false</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="bitwise-operators">
+<h3><strong>Bitwise Operators</strong><a class="headerlink" href="#bitwise-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&amp;</td>
+            <td>Bitwise AND operator performs a bitwise AND operation on two operands.</td>
+            <td><code>int result = 5 &amp; 3; // result is 1</code></td>
+        </tr>
+        <tr>
+            <td>|</td>
+            <td>Bitwise OR operator performs a bitwise OR operation on two operands.</td>
+            <td><code>int result = 5 | 3; // result is 7</code></td>
+        </tr>
+        <tr>
+            <td>^</td>
+            <td>Bitwise XOR operator performs a bitwise XOR operation on two operands.</td>
+            <td><code>int result = 5 ^ 3; // result is 6</code></td>
+        </tr>
+        <tr>
+            <td>~</td>
+            <td>Bitwise NOT operator performs a bitwise complement operation on the operand.</td>
+            <td><code>int result = ~5; // result is -6</code></td>
+        </tr>
+        <tr>
+            <td>&lt;&lt;</td>
+            <td>Bitwise left shift operator shifts the bits of the left operand to the left by the number of bits
+                specified by the right operand.</td>
+            <td><code>int result = 5 &lt;&lt; 2; // result is 20</code></td>
+        </tr>
+        <tr>
+            <td>&gt;&gt;</td>
+            <td>Bitwise right shift operator shifts the bits of the left operand to the right by the number of bits
+                specified by the right operand.</td>
+            <td><code>int result = 5 &gt;&gt; 2; // result is 1</code></td>
+        </tr>
+        <tr>
+            <td>&gt;&gt;&gt;</td>
+            <td>Bitwise unsigned right shift operator shifts the bits of the left operand to the right by the number of
+                bits specified by the right operand and fills the leftmost bits with 0.</td>
+            <td><code>int result = -5 &gt;&gt;&gt; 2; // result is 1073741822</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="ternary-operator">
+<h3><strong>Ternary Operator</strong><a class="headerlink" href="#ternary-operator" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>? :</td>
+            <td>Ternary operator evaluates a boolean expression and returns one of two possible values, depending on
+                whether the expression is true or false.</td>
+            <td><code>int max = (5 &gt; 3) ? 5 : 3; // max is 5 if the expression is true, otherwise max is 3</code></td>
+        </tr>
+    </tbody>
+</table></section>
+<section id="unary-operators">
+<h3><strong>Unary Operators</strong><a class="headerlink" href="#unary-operators" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>+</td>
+            <td>Unary plus operator indicates positive value.</td>
+            <td><code>int x = +5; // x is 5</code></td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>Unary minus operator negates the value of the operand.</td>
+            <td><code>int x = -5; // x is -5</code></td>
+        </tr>
+        <tr>
+            <td>++</td>
+            <td>Increment operator increments the value of the operand by 1.</td>
+            <td><code>int x = 5; x++; // x is now 6</code></td>
+        </tr>
+        <tr>
+            <td>--</td>
+            <td>Decrement operator decrements the value of the operand by 1.</td>
+            <td><code>int x = 5; x--; // x is now 4</code></td>
+        </tr>
+        <tr>
+            <td>!</td>
+            <td>Logical NOT operator returns the opposite boolean value of the operand.</td>
+            <td><code>boolean isFalse = !(5 &gt; 3); // isFalse is false</code></td>
+        </tr>
+        <tr>
+            <td>~</td>
+            <td>Bitwise NOT operator performs a bitwise complement operation on the operand.</td>
+            <td><code>int result = ~5; // result is -6</code></td>
+        </tr>
+        <tr>
+            <td>(type)</td>
+            <td>Cast operator converts one data type to another.</td>
+            <td><code>double d = 3.14; int i = (int) d; // i is 3</code></td>
+        </tr>
+    </tbody>
+</table></section>
+</section>
+<section id="control-structures">
+<h2>Control Structures<a class="headerlink" href="#control-structures" title="Permalink to this headline">#</a></h2>
+<section id="conditional-statements">
+<h3><strong>Conditional Statements</strong><a class="headerlink" href="#conditional-statements" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <tr>
+    <th>Statement</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td>if</td>
+    <td>Executes a block of code if the specified condition is true</td>
+    <td><code>if (x > y) { System.out.println("x is greater than y"); }</code></td>
+  </tr>
+  <tr>
+    <td>else</td>
+    <td>Executes a block of code if the preceding if statement is false</td>
+    <td><code>if (x > y) { System.out.println("x is greater than y"); } else { System.out.println("y is greater than or equal to x"); }</code></td>
+  </tr>
+  <tr>
+    <td>else if</td>
+    <td>Executes a block of code if the preceding if statement is false and the specified condition is true</td>
+    <td><code>if (x > y) { System.out.println("x is greater than y"); } else if (x < y) { System.out.println("x is less than y"); } else { System.out.println("x is equal to y"); }</code></td>
+  </tr>
+  <tr>
+    <td>switch</td>
+    <td>Executes a block of code based on the value of a variable</td>
+    <td><code>switch (day) { case 1: System.out.println("Monday"); break; case 2: System.out.println("Tuesday"); break; default: System.out.println("Invalid day"); }</code></td>
+  </tr>
+</table>
+</section>
+<section id="loop-statements">
+<h3><strong>Loop Statements</strong><a class="headerlink" href="#loop-statements" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <thead>
+    <tr>
+      <th>Statement</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>for</td>
+      <td>Repeats a block of code a fixed number of times</td>
+      <td><code>for (int i = 0; i &lt; 5; i++) { System.out.println(i); }</code></td>
+    </tr>
+    <tr>
+      <td>while</td>
+      <td>Repeats a block of code while a specified condition is true</td>
+      <td><code>int i = 0; while (i &lt; 5) { System.out.println(i); i++; }</code></td>
+    </tr>
+    <tr>
+      <td>do-while</td>
+      <td>Repeats a block of code while a specified condition is true, at least once</td>
+      <td><code>int i = 0; do { System.out.println(i); i++; } while (i &lt; 5);</code></td>
+    </tr>
+    <tr>
+      <td>foreach</td>
+      <td>Repeats a block of code for each element in an array or collection</td>
+      <td><code>int[] numbers = {1, 2, 3, 4, 5}; for (int number : numbers) { System.out.println(number); }</code></td>
+    </tr>
+</table></section>
+<section id="jump-statements">
+<h3><strong>Jump Statements</strong><a class="headerlink" href="#jump-statements" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <thead>
+    <tr>
+      <th>Statement</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break</td>
+      <td>Terminates the execution of a loop or switch statement and transfers control to the statement immediately following the loop or switch</td>
+      <td><code>for (int i = 0; i &lt; 10; i++) { if (i == 5) { break; } System.out.println(i); }</code></td>
+    </tr>
+    <tr>
+      <td>continue</td>
+      <td>Skips the current iteration of a loop and continues with the next iteration</td>
+      <td><code>for (int i = 0; i &lt; 10; i++) { if (i % 2 == 0) { continue; } System.out.println(i); }</code></td>
+    </tr>
+    <tr>
+      <td>return</td>
+      <td>Terminates the execution of a method and returns a value to the caller</td>
+      <td><code>public int sum(int a, int b) { return a + b; }</code></td>
+    </tr>
+  </tbody>
+</table></section>
+<section id="exception-handling">
+<h3><strong>Exception Handling</strong><a class="headerlink" href="#exception-handling" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <thead>
+    <tr>
+      <th>Syntax</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>try-catch</td>
+      <td>Used to catch exceptions that may occur within a block of code</td>
+      <td>
+        <pre>
+try {
+    // code that may throw an exception
+} catch (ExceptionType1 e1) {
+    // code to handle exception of type ExceptionType1
+} catch (ExceptionType2 e2) {
+    // code to handle exception of type ExceptionType2
+} finally {
+    // code that will always execute, regardless of whether an exception is thrown or not
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>throw</td>
+      <td>Used to manually throw an exception</td>
+      <td><code>if (x &lt; 0) { throw new IllegalArgumentException("x must be non-negative"); }</code></td>
+    </tr>
+    <tr>
+      <td>throws</td>
+      <td>Used to declare that a method may throw an exception</td>
+      <td><code>public void readFile(String filename) throws IOException { // code to read a file }</code></td>
+    </tr>
+  </tbody>
+</table></section>
+</section>
+<section id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">#</a></h2>
+<section id="java-data-structures">
+<h3><strong>Java data Structures</strong><a class="headerlink" href="#java-data-structures" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <thead>
+    <tr>
+      <th>Data Structure</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Array</td>
+      <td>A fixed-size container that stores a sequence of elements of the same type</td>
+      <td><code>int[] numbers = new int[]{1, 2, 3, 4, 5};</code></td>
+    </tr>
+    <tr>
+      <td>ArrayList</td>
+      <td>A dynamic-size container that stores a sequence of elements of the same type</td>
+      <td>
+        <pre>
+ArrayList<String> names = new ArrayList<String>();
+names.add("Alice");
+names.add("Bob");
+names.add("Charlie");
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>LinkedList</td>
+      <td>A dynamic-size container that stores a sequence of elements of the same type, implemented as a linked list</td>
+      <td>
+        <pre>
+LinkedList<Integer> numbers = new LinkedList<Integer>();
+numbers.add(1);
+numbers.add(2);
+numbers.add(3);
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Stack</td>
+      <td>A container that stores elements in a last-in, first-out (LIFO) order</td>
+      <td>
+        <pre>
+Stack<String> stack = new Stack<String>();
+stack.push("Alice");
+stack.push("Bob");
+stack.push("Charlie");
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Queue</td>
+      <td>A container that stores elements in a first-in, first-out (FIFO) order</td>
+      <td>
+        <pre>
+Queue<String> queue = new LinkedList<String>();
+queue.add("Alice");
+queue.add("Bob");
+queue.add("Charlie");
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>HashMap</td>
+      <td>A container that stores key-value pairs, allowing for fast lookup of values by key</td>
+      <td>
+        <pre>
+HashMap<String, Integer> ages = new HashMap<String, Integer>();
+ages.put("Alice", 25);
+ages.put("Bob", 30);
+ages.put("Charlie", 35);
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>HashSet</td>
+      <td>A container that stores a set of unique elements</td>
+      <td>
+        <pre>
+HashSet<String> names = new HashSet<String>();
+names.add("Alice");
+names.add("Bob");
+names.add("Charlie");
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table></section>
+<section id="array-operations">
+<h3><strong>Array Operations</strong><a class="headerlink" href="#array-operations" title="Permalink to this headline">#</a></h3>
+<table border=1>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Creating an array</td>
+      <td>Declare and initialize an array with a fixed size</td>
+      <td><code>int[] numbers = new int[5];</code></td>
+    </tr>
+    <tr>
+      <td>Initializing an array</td>
+      <td>Assign values to each element of an array</td>
+      <td><code>int[] numbers = {1, 2, 3, 4, 5};</code></td>
+    </tr>
+    <tr>
+      <td>Accessing an array element</td>
+      <td>Get the value of an element at a given index</td>
+      <td><code>int x = numbers[2]; // x = 3</code></td>
+    </tr>
+    <tr>
+      <td>Updating an array element</td>
+      <td>Change the value of an element at a given index</td>
+      <td><code>numbers[2] = 10; // numbers = {1, 2, 10, 4, 5}</code></td>
+    </tr>
+    <tr>
+      <td>Iterating over an array</td>
+      <td>Loop through all elements of an array</td>
+      <td>
+        <pre>
+for (int i = 0; i &lt; numbers.length; i++) {
+  int x = numbers[i];
+  // do something with x
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Finding the length of an array</td>
+      <td>Get the number of elements in an array</td>
+      <td><code>int length = numbers.length; // length = 5</code></td>
+    </tr>
+    <tr>
+      <td>Sorting an array</td>
+      <td>Sort the elements of an array in ascending order</td>
+      <td>
+        <pre>
+Arrays.sort(numbers);
+// numbers = {1, 2, 4, 5, 10}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Copying an array</td>
+      <td>Create a new array with the same values as an existing array</td>
+      <td><code>int[] copy = Arrays.copyOf(numbers, numbers.length);</code></td>
+    </tr>
+    <tr>
+      <td>Searching an array</td>
+      <td>Find the index of a specific element in an array</td>
+      <td>
+        <pre>
+int index = Arrays.binarySearch(numbers, 4);
+// index = 2
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table></section>
+</section>
+<section id="scope-level">
+<h2>Scope Level<a class="headerlink" href="#scope-level" title="Permalink to this headline">#</a></h2>
+<section id="level-of-visibility">
+<h3><strong>Level of Visibility</strong><a class="headerlink" href="#level-of-visibility" title="Permalink to this headline">#</a></h3>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Scope level</th>
+            <th>Keyword used</th>
+            <th>Accessible from</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Class-level scope</td>
+            <td>static</td>
+            <td>All instances of the class and other classes in the same package</td>
+        </tr>
+        <tr>
+            <td>Instance-level scope</td>
+            <td>Not static</td>
+            <td>Instances of the class</td>
+        </tr>
+        <tr>
+            <td>Method-level scope</td>
+            <td>Not applicable</td>
+            <td>Within the method</td>
+        </tr>
+        <tr>
+            <td>Local scope</td>
+            <td>Not applicable</td>
+            <td>Within the code block (e.g., loop, conditional statement)</td>
+        </tr>
+    </tbody>
+</table><p>Note: Package-level scope, which allows access to variables and methods across classes within the same package
+without requiring explicit qualification or namespace prefix, is based on the default visibility of the class (which is package-private) rather than on any keyword or modifier, and thus is not included in this table.</p>
+</section>
+<section id="modifiers">
+<h3><strong>Modifiers</strong><a class="headerlink" href="#modifiers" title="Permalink to this headline">#</a></h3>
+<p>Java modifiers are keywords used to define the scope, access, and behavior of classes, methods, variables, and other program components. The following table categorizes Java modifiers according to their function and syntax format:</p>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Modifier Type</th>
+            <th>Function</th>
+            <th>Syntax Format</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Access Modifiers</td>
+            <td>Determines the accessibility of classes, methods, and variables from other classes and packages.</td>
+            <td>public, protected, private</td>
+            <td><code>public class Example { ... }<br><br>protected void method() { ... }<br><br>private int var;</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Non-Access Modifiers</td>
+            <td>Modifiers that change the behavior of classes, methods, and variables without affecting accessibility.
+            </td>
+            <td>static, final, abstract, synchronized, native</td>
+            <td><code>static int count = 0;<br><br>final double PI = 3.14;<br><br>abstract void draw();<br><br>synchronized void update() { ... }<br><br>native void init();</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Access and Non-Access Modifiers</td>
+            <td>Modifiers that combine both accessibility and behavior modification.</td>
+            <td>strictfp, transient, volatile</td>
+            <td><code>public strictfp class Example { ... }<br><br>transient int tempVar;<br><br>volatile boolean flag;</code>
+            </td>
+        </tr>
+    </tbody>
+</table><p>Let’s discuss each of these modifier types in more detail:</p>
+<p><em><strong>Access Modifiers</strong></em></p>
+<p>Access modifiers determine the accessibility of classes, methods, and variables from other classes and packages. There are three access modifiers in Java:</p>
+<ul class="simple">
+<li><p>public: A public class, method, or variable can be accessed from any other class in any package.</p></li>
+<li><p>protected: A protected class, method, or variable can be accessed from the same package or subclass.</p></li>
+<li><p>private: A private class, method, or variable can be accessed only within the same class.</p></li>
+</ul>
+<p><em><strong>Non-Access Modifiers</strong></em></p>
+<p>Non-access modifiers change the behavior of classes, methods, and variables without affecting accessibility. There are five non-access modifiers in Java:</p>
+<ul class="simple">
+<li><p>static: A static variable or method belongs to the class rather than an instance of the class.</p></li>
+<li><p>final: A final variable or method cannot be changed or overridden.</p></li>
+<li><p>abstract: An abstract class or method provides a template for subclasses to implement.</p></li>
+<li><p>synchronized: A synchronized method can be accessed by only one thread at a time.</p></li>
+<li><p>native: A native method is implemented in a language other than Java.</p></li>
+</ul>
+<p><em><strong>Access and Non-Access Modifiers</strong></em></p>
+<p>These modifiers combine both accessibility and behavior modification. There are two modifiers in this category:</p>
+<ul class="simple">
+<li><p>strictfp: A strictfp class or method ensures consistent floating-point calculations across different platforms.</p></li>
+<li><p>transient: A transient variable is not saved when the object is serialized.</p></li>
+<li><p>volatile: A volatile variable is accessed by multiple threads, and its value is always up-to-date.</p></li>
+</ul>
+</section>
+</section>
+<section id="anatomy-of-methods-in-java">
+<h2>Anatomy of Methods in Java<a class="headerlink" href="#anatomy-of-methods-in-java" title="Permalink to this headline">#</a></h2>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Access Modifier</td>
+            <td>Determines the access level of the method, such as public, private, or protected.</td>
+            <td><code>public</code></td>
+        </tr>
+        <tr>
+            <td>Return Type</td>
+            <td>Specifies the data type of the value that the method will return, such as <code>int</code>,
+                <code>String</code>, or <code>void</code>.
+            </td>
+            <td><code>int[]</code></td>
+        </tr>
+        <tr>
+            <td>Method Name</td>
+            <td>Defines the name of the method, which should be descriptive of its purpose.</td>
+            <td><code>filterEvenNumbers</code></td>
+        </tr>
+        <tr>
+            <td>Parameters</td>
+            <td>Specifies the input parameters that the method expects to receive, including their data types and names.
+            </td>
+            <td><code>(int[] numbers)</code></td>
+        </tr>
+        <tr>
+            <td>Method Body</td>
+            <td>Contains the code that the method will execute when it is called, enclosed in curly braces.</td>
+            <td><code>{ List&lt;Integer&gt; evenNumbers = new ArrayList&lt;&gt;(); for (int num : numbers) { if (num % 2 == 0) { evenNumbers.add(num); } } int[] result = evenNumbers.stream().mapToInt(Integer::intValue).toArray(); return result; }</code>
+            </td>
+        </tr>
+    </tbody>
+</table><p>Example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">public</span> <span class="nb">int</span><span class="p">[]</span> <span class="n">filterEvenNumbers</span><span class="p">(</span><span class="nb">int</span><span class="p">[]</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">evenNumbers</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">num</span> <span class="p">:</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">evenNumbers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">int</span><span class="p">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="n">evenNumbers</span><span class="o">.</span><span class="n">stream</span><span class="p">()</span><span class="o">.</span><span class="n">mapToInt</span><span class="p">(</span><span class="n">Integer</span><span class="p">::</span><span class="n">intValue</span><span class="p">)</span><span class="o">.</span><span class="n">toArray</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="oop-with-java">
+<h2>OOP with Java<a class="headerlink" href="#oop-with-java" title="Permalink to this headline">#</a></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Concept</th>
+            <th>Description</th>
+            <th>Example Syntax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="2">Class</td>
+            <td>Blueprint for creating objects. Defines the properties and methods that an object will have.</td>
+            <td>
+                <pre lang="java">public class MyClass {
+    private int myVar;
+  public void setMyVar(int var) {
+  myVar = var;
+  }
+  }</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Can be instantiated to create objects. Objects have their own instance variables and can call the
+                methods of their class.</td>
+            <td>
+                <pre lang="java">MyClass obj = new MyClass();
+  obj.setMyVar(5);</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Inheritance</td>
+            <td>Allows a class to inherit properties and methods from another class. The inherited class is called the
+                superclass or parent class, and the inheriting class is called the subclass or child class.</td>
+            <td>
+                <pre lang="java">public class Vehicle {
+  protected int numWheels;
+  public void setNumWheels(int num) {
+  numWheels = num;
+  }
+  }
+<p>public class Car extends Vehicle {
+private String model;
+public void setModel(String mod) {
+model = mod;
+}
+}</pre>
+</td>
+</tr>
+<tr>
+<td>Polymorphism</td>
+<td>The ability of an object to take on multiple forms. In Java, this is often achieved through method
+overriding and interfaces.</td>
+<td>
+<pre lang="java">public interface Animal {
+public void makeSound();
+}</p>
+<p>public class Dog implements Animal {
+public void makeSound() {
+System.out.println(“Woof”);
+}
+}</p>
+<p>public class Cat implements Animal {
+public void makeSound() {
+System.out.println(“Meow”);
+}
+}</pre>
+</td>
+</tr>
+<tr>
+<td>Encapsulation</td>
+<td>The practice of keeping instance variables private and providing public methods to access or modify
+them. This helps to prevent unintended modification of object state and maintain data integrity.</td>
+<td>
+<pre lang="java">public class BankAccount {
+private int balance;</p>
+<p>public void deposit(int amount) {
+balance += amount;
+}</p>
+<p>public void withdraw(int amount) {
+if (balance &gt;= amount) {
+balance -= amount;
+} else {
+System.out.println(“Insufficient funds”);
+}
+}</p>
+<p>public int getBalance() {
+return balance;
+}
+}</pre>
+</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>The process of hiding implementation details and providing a simplified view of an object to its users.
+Abstract classes and interfaces are often used to achieve abstraction.</td>
+<td>
+<pre lang="java">public abstract class Shape {
+protected int x, y;
+public void setPosition(int x, int y) {
+this.x = x;
+this.y = y;
+}
+public abstract double getArea();
+}</p>
+<p>public class Circle extends Shape {
+protected int radius;
+public void setRadius(int r) {
+radius = r;
+}
+public double getArea() {
+return Math.PI * radius * radius;
+}
+}</pre>
+</td>
+</tr>
+</tbody></p>
+</table></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Nafis B.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
